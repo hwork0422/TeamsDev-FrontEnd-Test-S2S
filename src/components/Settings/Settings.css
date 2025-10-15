@@ -161,6 +161,35 @@
   gap: 8px;
 }
 
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 24px;
+  border-radius: 8px;
+  min-width: 400px;
+  max-width: 600px;
+}
+
+.modal-title {
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #323130;
+}
+
 /* Dark theme adjustments */
 [data-theme="dark"] .settings {
   background-color: #1a1a1a;
@@ -213,6 +242,14 @@
 
 [data-theme="dark"] .btn-secondary:hover {
   background-color: #3a3a3a;
+}
+
+[data-theme="dark"] .modal-content {
+  background-color: #2d2d2d;
+}
+
+[data-theme="dark"] .modal-title {
+  color: #ffffff;
 }
 
 /* Contrast theme adjustments */
@@ -277,6 +314,15 @@
 
 [data-theme="contrast"] .btn-primary:hover {
   background-color: #ffffff;
+}
+
+[data-theme="contrast"] .modal-content {
+  background-color: #000000;
+  border: 2px solid #ffffff;
+}
+
+[data-theme="contrast"] .modal-title {
+  color: #ffffff;
 }
 
 /* Responsive design */
