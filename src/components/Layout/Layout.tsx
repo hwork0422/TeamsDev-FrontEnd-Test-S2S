@@ -66,9 +66,13 @@ const Layout: React.FC = () => {
     setActiveTab(activeTab === 'settings' ? 'menu' : 'settings');
   };
 
+  const handleHomeClick = () => {
+    setActiveTab('menu');
+  };
+
   return (
     <div className="layout" data-theme={currentTheme}>
-      <MegaMenu onSettingsClick={handleSettingsClick} />
+      <MegaMenu onSettingsClick={handleSettingsClick} onHomeClick={handleHomeClick} />
       <div className="layout-content">
         {activeTab === 'menu' && <div className="welcome-content">
           <h2>Welcome to Teams Intranet Navigation</h2>

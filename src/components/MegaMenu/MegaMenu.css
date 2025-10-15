@@ -164,10 +164,19 @@
   gap: 3px;
   border-radius: 4px;
   transition: background-color 0.2s ease;
+  position: relative;
 }
 
 .hamburger-menu:hover {
   background-color: #f3f2f1;
+}
+
+.hamburger-menu.active {
+  background-color: #0078d4;
+}
+
+.hamburger-menu.active .hamburger-line {
+  background-color: #ffffff;
 }
 
 .hamburger-line {
@@ -176,6 +185,44 @@
   background-color: #323130;
   border-radius: 1px;
   transition: all 0.2s ease;
+}
+
+/* Hamburger Dropdown */
+.hamburger-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  border: 1px solid #e1dfdd;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1002;
+  min-width: 200px;
+  margin-top: 4px;
+  animation: slideDown 0.2s ease-out;
+}
+
+.hamburger-item {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: 14px;
+  color: #323130;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f3f2f1;
+}
+
+.hamburger-item:last-child {
+  border-bottom: none;
+}
+
+.hamburger-item:hover {
+  background-color: #f3f2f1;
+  color: #0078d4;
 }
 
 /* Three Dots Menu */
@@ -270,8 +317,28 @@
   background-color: #2d2d2d;
 }
 
+[data-theme="dark"] .hamburger-menu.active {
+  background-color: #60cdff;
+}
+
 [data-theme="dark"] .hamburger-line {
   background-color: #ffffff;
+}
+
+[data-theme="dark"] .hamburger-dropdown {
+  background-color: #1a1a1a;
+  border-color: #484644;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .hamburger-item {
+  color: #ffffff;
+  border-bottom-color: #2d2d2d;
+}
+
+[data-theme="dark"] .hamburger-item:hover {
+  background-color: #2d2d2d;
+  color: #60cdff;
 }
 
 [data-theme="dark"] .settings-menu:hover {
@@ -337,8 +404,30 @@
   border: 1px solid #ffffff;
 }
 
+[data-theme="contrast"] .hamburger-menu.active {
+  background-color: #ffff00;
+  border: 1px solid #ffffff;
+}
+
 [data-theme="contrast"] .hamburger-line {
   background-color: #ffffff;
+}
+
+[data-theme="contrast"] .hamburger-dropdown {
+  background-color: #000000;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="contrast"] .hamburger-item {
+  color: #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+[data-theme="contrast"] .hamburger-item:hover {
+  background-color: #000000;
+  color: #ffff00;
+  border-color: #ffff00;
 }
 
 [data-theme="contrast"] .settings-menu:hover {

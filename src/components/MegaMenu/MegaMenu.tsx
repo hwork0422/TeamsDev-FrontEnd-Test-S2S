@@ -7,12 +7,15 @@ import './MegaMenu.css';
 interface MegaMenuProps {
   className?: string;
   onSettingsClick?: () => void;
+  onHomeClick?: () => void;
 }
 
-const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick }) => {
+const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick, onHomeClick }) => {
   const { items } = useAppSelector((state) => state.menu);
+  const { currentTheme } = useAppSelector((state) => state.theme);
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
 
   const handleMouseEnter = (itemId: string) => {
     if (hoverTimeout) {
@@ -35,6 +38,33 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick }) => {
     }
   };
 
+  const handleHamburgerClick = () => {
+    setIsHamburgerOpen(!isHamburgerOpen);
+  };
+
+  const handleHamburgerMenuClick = (action: string) => {
+    setIsHamburgerOpen(false);
+    
+    switch (action) {
+      case 'home':
+        // Navigate to home/main page
+        onHomeClick?.();
+        break;
+      case 'settings':
+        onSettingsClick?.();
+        break;
+      case 'theme':
+        // Cycle through themes
+        const themes = ['light', 'dark', 'contrast'];
+        const currentIndex = themes.indexOf(currentTheme);
+        const nextTheme = themes[(currentIndex + 1) % themes.length];
+        document.documentElement.setAttribute('data-theme', nextTheme);
+        break;
+      default:
+        break;
+    }
+  };
+
   // Cleanup timeout on unmount
   useEffect(() => {
     return () => {
@@ -43,6 +73,24 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick }) => {
       }
     };
   }, [hoverTimeout]);
+
+  // Close hamburger menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (isHamburgerOpen && !target.closest('.mega-menu-left')) {
+        setIsHamburgerOpen(false);
+      }
+    };
+
+    if (isHamburgerOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isHamburgerOpen]);
 
   const renderMegaMenuContent = (item: MenuItem) => {
     if (!item.children || item.children.length === 0) return null;
@@ -84,11 +132,29 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick }) => {
     >
       <div className="mega-menu-nav">
         <div className="mega-menu-left">
-          <button className="hamburger-menu" title="Menu">
+          <button 
+            className={`hamburger-menu ${isHamburgerOpen ? 'active' : ''}`} 
+            title="Menu"
+            onClick={handleHamburgerClick}
+          >
             <span className="hamburger-line"></span>
             <span className="hamburger-line"></span>
             <span className="hamburger-line"></span>
           </button>
+          
+          {isHamburgerOpen && (
+            <div className="hamburger-dropdown">
+              <button onClick={() => handleHamburgerMenuClick('home')} className="hamburger-item">
+                🏠 Home
+              </button>
+              <button onClick={() => handleHamburgerMenuClick('settings')} className="hamburger-item">
+                ⚙️ Settings
+              </button>
+              <button onClick={() => handleHamburgerMenuClick('theme')} className="hamburger-item">
+                🌙 Theme ({currentTheme})
+              </button>
+            </div>
+          )}
         </div>
         
         <div className="mega-menu-center">
