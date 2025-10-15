@@ -1,0 +1,70 @@
+/* Global app styles */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+}
+
+/* Basic button styling to prevent text overlap */
+button {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fluent UI theme variables */
+:root {
+  --colorNeutralBackground1: #ffffff;
+  --colorNeutralBackground2: #fafafa;
+  --colorNeutralBackground1Hover: #f5f5f5;
+  --colorNeutralForeground1: #323130;
+  --colorNeutralForeground2: #605e5c;
+  --colorNeutralForeground1Hover: #201f1e;
+  --colorNeutralStroke1: #d1d1d1;
+  --colorBrandForeground1: #0078d4;
+  --shadow8: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --colorNeutralBackground1: #1a1a1a;
+  --colorNeutralBackground2: #2d2d2d;
+  --colorNeutralBackground1Hover: #3a3a3a;
+  --colorNeutralForeground1: #ffffff;
+  --colorNeutralForeground2: #c8c6c4;
+  --colorNeutralForeground1Hover: #ffffff;
+  --colorNeutralStroke1: #484644;
+  --colorBrandForeground1: #60cdff;
+  --shadow8: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Contrast theme */
+[data-theme="contrast"] {
+  --colorNeutralBackground1: #000000;
+  --colorNeutralBackground2: #1a1a1a;
+  --colorNeutralBackground1Hover: #333333;
+  --colorNeutralForeground1: #ffffff;
+  --colorNeutralForeground2: #ffffff;
+  --colorNeutralForeground1Hover: #ffffff;
+  --colorNeutralStroke1: #ffffff;
+  --colorBrandForeground1: #ffff00;
+  --shadow8: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
