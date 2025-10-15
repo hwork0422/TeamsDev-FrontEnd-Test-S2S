@@ -1,0 +1,74 @@
+.settings {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.menu-tree {
+  border: 1px solid var(--colorNeutralStroke1);
+  border-radius: 4px;
+  padding: 16px;
+  background-color: var(--colorNeutralBackground1);
+  min-height: 400px;
+}
+
+.menu-tree .ui-tree {
+  background: transparent;
+}
+
+.menu-tree .ui-tree__item {
+  margin-bottom: 8px;
+}
+
+.menu-tree .ui-tree__item__content {
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.menu-tree .ui-tree__item__content:hover {
+  background-color: var(--colorNeutralBackground1Hover);
+}
+
+.menu-tree .ui-tree__item__content:focus {
+  outline: 2px solid var(--colorBrandForeground1);
+  outline-offset: -2px;
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .settings {
+  background-color: var(--colorNeutralBackground1);
+}
+
+[data-theme="dark"] .menu-tree {
+  background-color: var(--colorNeutralBackground1);
+  border-color: var(--colorNeutralStroke1);
+}
+
+/* Contrast theme adjustments */
+[data-theme="contrast"] .menu-tree {
+  border-color: var(--colorNeutralStroke1);
+}
+
+[data-theme="contrast"] .menu-tree .ui-tree__item__content {
+  border: 1px solid transparent;
+}
+
+[data-theme="contrast"] .menu-tree .ui-tree__item__content:hover {
+  border-color: var(--colorNeutralStroke1);
+}
+
+[data-theme="contrast"] .menu-tree .ui-tree__item__content:focus {
+  border-color: var(--colorBrandForeground1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .settings {
+    padding: 16px;
+  }
+  
+  .menu-tree {
+    padding: 12px;
+  }
+}
