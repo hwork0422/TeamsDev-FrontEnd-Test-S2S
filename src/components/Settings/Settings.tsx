@@ -69,107 +69,63 @@ const MenuItemForm: React.FC<MenuItemFormProps> = ({ item, onSave, onCancel }) =
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        <div>
-          <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>Label *</label>
+    <form onSubmit={handleSubmit} className="menu-item-form">
+      <div className="form-group">
+        <label htmlFor="label">Label *</label>
+        <input
+          id="label"
+          type="text"
+          value={formData.label}
+          onChange={(e) => handleInputChange('label', e.target.value)}
+          placeholder="Enter menu item label"
+          className={errors.label ? 'error' : ''}
+          required
+        />
+        {errors.label && <span className="error-message">{errors.label}</span>}
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="url">URL</label>
+        <input
+          id="url"
+          type="url"
+          value={formData.url}
+          onChange={(e) => handleInputChange('url', e.target.value)}
+          placeholder="https://example.com"
+          className={errors.url ? 'error' : ''}
+        />
+        {errors.url && <span className="error-message">{errors.url}</span>}
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="icon">Icon</label>
+        <input
+          id="icon"
+          type="text"
+          value={formData.icon}
+          onChange={(e) => handleInputChange('icon', e.target.value)}
+          placeholder="Icon name (optional)"
+        />
+      </div>
+
+      <div className="form-group">
+        <label className="checkbox-label">
           <input
-            type="text"
-            value={formData.label}
-            onChange={(e) => handleInputChange('label', e.target.value)}
-            placeholder="Enter menu item label"
-            required
-            style={{
-              width: '100%',
-              padding: '8px 12px',
-              border: errors.label ? '1px solid #d13438' : '1px solid #d1d1d1',
-              borderRadius: '4px',
-              fontSize: '14px'
-            }}
+            type="checkbox"
+            checked={formData.openInTeams}
+            onChange={(e) => handleInputChange('openInTeams', e.target.checked)}
           />
-          {errors.label && <div style={{ color: '#d13438', fontSize: '12px', marginTop: '4px' }}>{errors.label}</div>}
-        </div>
+          <span>Open in Teams</span>
+        </label>
+      </div>
 
-        <div>
-          <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>URL</label>
-          <input
-            type="url"
-            value={formData.url}
-            onChange={(e) => handleInputChange('url', e.target.value)}
-            placeholder="https://example.com"
-            style={{
-              width: '100%',
-              padding: '8px 12px',
-              border: errors.url ? '1px solid #d13438' : '1px solid #d1d1d1',
-              borderRadius: '4px',
-              fontSize: '14px'
-            }}
-          />
-          {errors.url && <div style={{ color: '#d13438', fontSize: '12px', marginTop: '4px' }}>{errors.url}</div>}
-        </div>
-
-        <div>
-          <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>Icon</label>
-          <input
-            type="text"
-            value={formData.icon}
-            onChange={(e) => handleInputChange('icon', e.target.value)}
-            placeholder="Icon name (optional)"
-            style={{
-              width: '100%',
-              padding: '8px 12px',
-              border: '1px solid #d1d1d1',
-              borderRadius: '4px',
-              fontSize: '14px'
-            }}
-          />
-        </div>
-
-        <div>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <input
-              type="checkbox"
-              checked={formData.openInTeams}
-              onChange={(e) => handleInputChange('openInTeams', e.target.checked)}
-              style={{ margin: 0 }}
-            />
-            <span style={{ fontWeight: '600' }}>Open in Teams</span>
-          </label>
-        </div>
-
-        <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-          <button 
-            type="submit" 
-            style={{
-              backgroundColor: '#0078d4',
-              color: 'white',
-              border: 'none',
-              padding: '8px 16px',
-              borderRadius: '4px',
-              fontSize: '14px',
-              fontWeight: '600',
-              cursor: 'pointer'
-            }}
-          >
-            {item ? 'Update' : 'Add'} Item
-          </button>
-          <button 
-            type="button"
-            onClick={onCancel}
-            style={{
-              backgroundColor: 'white',
-              color: '#323130',
-              border: '1px solid #d1d1d1',
-              padding: '8px 16px',
-              borderRadius: '4px',
-              fontSize: '14px',
-              fontWeight: '600',
-              cursor: 'pointer'
-            }}
-          >
-            Cancel
-          </button>
-        </div>
+      <div className="form-actions">
+        <button type="submit" className="btn btn-primary">
+          {item ? 'Update Item' : 'Add Item'}
+        </button>
+        <button type="button" onClick={onCancel} className="btn btn-secondary">
+          Cancel
+        </button>
       </div>
     </form>
   );
@@ -329,7 +285,9 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
                   Delete
                 </button>
                 <button
-                  className={`btn btn-small ${isMaxDepth ? 'btn-disabled' : 'btn-secondary'}`}
+                  className={`btn btn-small btn-secondary ${isMaxDepth ? 'btn-disabled' : ''}`}
+                  disabled={isMaxDepth}
+                  title={isMaxDepth ? 'Maximum depth (4 levels) reached' : 'Add child item'}
                   onClick={() => {
                     if (!isMaxDepth) {
                       console.log('Add Child button clicked for item:', item.id);
@@ -337,8 +295,6 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
                       setIsAddDialogOpen(true);
                     }
                   }}
-                  disabled={isMaxDepth}
-                  title={isMaxDepth ? 'Maximum depth (4 levels) reached' : 'Add child item'}
                 >
                   Add Child
                 </button>
@@ -353,21 +309,13 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
   return (
     <div className={`settings ${className || ''}`}>
       <div className="settings-container">
-        <div className="settings-header">
-          <h2 className="settings-title">Configure Navigations</h2>
-          <button 
-            className="settings-close"
-            onClick={() => {
-              // This will be handled by the parent component
-              window.location.reload(); // Temporary solution
-            }}
-          >
-            ×
-          </button>
-        </div>
+        <h1 className="settings-title">
+          Configure Navigations
+        </h1>
 
         <div className="settings-controls">
           <div className="search-container">
+            <span className="search-icon">🔍</span>
             <input
               type="text"
               placeholder="Search menu items..."
@@ -375,11 +323,11 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="search-input"
             />
-            <span className="search-icon">🔍</span>
             {searchTerm && (
               <button
-                onClick={() => setSearchTerm('')}
                 className="search-clear"
+                onClick={() => setSearchTerm('')}
+                title="Clear search"
               >
                 ×
               </button>
@@ -397,6 +345,8 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
           </button>
         </div>
 
+        <hr className="divider" />
+
         <div className="menu-tree">
           {renderMenuItems(items)}
         </div>
@@ -404,11 +354,9 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
 
         {/* Add Item Modal */}
         {isAddDialogOpen && (
-          <div className="modal-overlay">
-            <div className="modal-content">
-              <h3 className="modal-title">
-                Add Menu Item
-              </h3>
+          <div className="modal-overlay" onClick={() => setIsAddDialogOpen(false)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <h3 className="modal-title">Add Menu Item</h3>
               <MenuItemForm
                 onSave={handleAddItem}
                 onCancel={() => setIsAddDialogOpen(false)}
@@ -419,11 +367,9 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
 
         {/* Edit Item Modal */}
         {isEditDialogOpen && (
-          <div className="modal-overlay">
-            <div className="modal-content">
-              <h3 className="modal-title">
-                Edit Menu Item
-              </h3>
+          <div className="modal-overlay" onClick={() => setIsEditDialogOpen(false)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <h3 className="modal-title">Edit Menu Item</h3>
               <MenuItemForm
                 item={selectedItem || undefined}
                 onSave={handleEditItem}

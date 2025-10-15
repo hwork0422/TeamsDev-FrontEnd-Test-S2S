@@ -28,6 +28,12 @@
   justify-content: flex-start;
 }
 
+.mega-menu-items {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
 .mega-menu-right {
   display: flex;
   align-items: center;

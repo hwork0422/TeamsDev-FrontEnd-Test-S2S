@@ -73,21 +73,28 @@
 
 .layout-content {
   padding: 24px;
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 48px);
+  text-align: left;
 }
 
-.settings-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+.welcome-content {
+  text-align: center;
+  padding: 60px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.welcome-content h2 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #323130;
+  margin-bottom: 16px;
+}
+
+.welcome-content p {
+  font-size: 16px;
+  color: #605e5c;
+  line-height: 1.5;
 }
 
 .loading-container {
@@ -157,6 +164,14 @@
   color: #c8c6c4;
 }
 
+[data-theme="dark"] .welcome-content h2 {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .welcome-content p {
+  color: #c8c6c4;
+}
+
 /* Contrast theme adjustments */
 [data-theme="contrast"] .layout {
   background-color: #000000;
@@ -211,6 +226,14 @@
 }
 
 [data-theme="contrast"] .loading-spinner {
+  color: #ffffff;
+}
+
+[data-theme="contrast"] .welcome-content h2 {
+  color: #ffffff;
+}
+
+[data-theme="contrast"] .welcome-content p {
   color: #ffffff;
 }
 

@@ -1,7 +1,7 @@
 .settings {
   padding: 24px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -9,20 +9,6 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  background-color: white;
-  border-radius: 8px;
-  padding: 24px;
-  max-width: 1000px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.settings-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
 }
 
 .settings-title {
@@ -32,27 +18,12 @@
   margin: 0;
 }
 
-.settings-close {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: #605e5c;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.settings-close:hover {
-  background-color: #f3f2f1;
-  color: #323130;
-}
-
 .settings-controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  text-align: left;
 }
 
 .search-container {
@@ -301,18 +272,6 @@
   color: #ffffff;
 }
 
-[data-theme="dark"] .settings-container {
-  background-color: #2d2d2d;
-}
-
-[data-theme="dark"] .settings-close {
-  color: #c8c6c4;
-}
-
-[data-theme="dark"] .settings-close:hover {
-  background-color: #3a3a3a;
-  color: #ffffff;
-}
 
 [data-theme="dark"] .btn-disabled {
   background-color: #2d2d2d;
@@ -402,21 +361,6 @@
   color: #ffffff;
 }
 
-[data-theme="contrast"] .settings-container {
-  background-color: #000000;
-  border: 2px solid #ffffff;
-}
-
-[data-theme="contrast"] .settings-close {
-  color: #ffffff;
-  border: 1px solid transparent;
-}
-
-[data-theme="contrast"] .settings-close:hover {
-  background-color: #000000;
-  color: #ffff00;
-  border-color: #ffffff;
-}
 
 [data-theme="contrast"] .btn-disabled {
   background-color: #000000;
@@ -433,33 +377,142 @@
   color: #ff0000;
 }
 
+/* Form Styles */
+.menu-item-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #323130;
+}
+
+.form-group input[type="text"],
+.form-group input[type="url"] {
+  padding: 8px 12px;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="url"]:focus {
+  outline: none;
+  border-color: #0078d4;
+  box-shadow: 0 0 0 1px #0078d4;
+}
+
+.form-group input.error {
+  border-color: #d13438;
+}
+
+.error-message {
+  color: #d13438;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #323130;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin: 0;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #323130;
+  margin: 0 0 20px 0;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #e1dfdd;
+  margin: 16px 0;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .settings {
     padding: 16px;
   }
-  
+
   .settings-controls {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
   }
-  
+
   .search-container {
     max-width: none;
   }
-  
+
   .menu-tree {
     padding: 12px;
   }
-  
+
   .menu-item-actions {
     flex-direction: column;
     gap: 4px;
   }
-  
+
   .btn-small {
     padding: 6px 12px;
     font-size: 12px;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 16px;
   }
 }

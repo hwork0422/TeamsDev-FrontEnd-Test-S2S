@@ -69,11 +69,13 @@ const Layout: React.FC = () => {
   return (
     <div className="layout" data-theme={currentTheme}>
       <MegaMenu onSettingsClick={handleSettingsClick} />
-      {activeTab === 'settings' && (
-        <div className="settings-overlay">
-          <Settings />
-        </div>
-      )}
+      <div className="layout-content">
+        {activeTab === 'menu' && <div className="welcome-content">
+          <h2>Welcome to Teams Intranet Navigation</h2>
+          <p>Use the navigation menu above to explore different sections.</p>
+        </div>}
+        {activeTab === 'settings' && <Settings />}
+      </div>
     </div>
   );
 };

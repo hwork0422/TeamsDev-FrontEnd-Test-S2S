@@ -51,14 +51,14 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick }) => {
       <div className="mega-menu-content">
         {item.children.map((child, index) => (
           <div key={child.id} className="mega-menu-column">
-            <h3 className="mega-menu-section-title">
+            <div className="mega-menu-section-title">
               {child.label}
-            </h3>
+            </div>
             {child.children && child.children.map((subItem) => (
               <div key={subItem.id} className="mega-menu-subsection">
-                <h4 className="mega-menu-subsection-title">
+                <div className="mega-menu-subsection-title">
                   {subItem.label}
-                </h4>
+                </div>
                 {subItem.children && subItem.children.map((subSubItem) => (
                   <div key={subSubItem.id} className="mega-menu-link">
                     <button
@@ -84,7 +84,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick }) => {
     >
       <div className="mega-menu-nav">
         <div className="mega-menu-left">
-          <button className="hamburger-menu">
+          <button className="hamburger-menu" title="Menu">
             <span className="hamburger-line"></span>
             <span className="hamburger-line"></span>
             <span className="hamburger-line"></span>
@@ -92,24 +92,26 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick }) => {
         </div>
         
         <div className="mega-menu-center">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className={`mega-menu-nav-item ${activeItem === item.id ? 'active' : ''}`}
-              onMouseEnter={() => handleMouseEnter(item.id)}
-            >
-              <button
-                className="mega-menu-nav-button"
-                onClick={() => handleItemClick(item)}
+          <div className="mega-menu-items">
+            {items.map((item) => (
+              <div
+                key={item.id}
+                className={`mega-menu-nav-item ${activeItem === item.id ? 'active' : ''}`}
+                onMouseEnter={() => handleMouseEnter(item.id)}
               >
-                {item.label}
-              </button>
-            </div>
-          ))}
+                <button
+                  className="mega-menu-nav-button"
+                  onClick={() => handleItemClick(item)}
+                >
+                  {item.label}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
         
         <div className="mega-menu-right">
-          <button className="settings-menu" onClick={onSettingsClick}>
+          <button className="settings-menu" title="Settings" onClick={onSettingsClick}>
             <span className="three-dots">
               <span className="dot"></span>
               <span className="dot"></span>
