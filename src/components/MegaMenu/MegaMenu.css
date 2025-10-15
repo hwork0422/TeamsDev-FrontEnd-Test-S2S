@@ -17,6 +17,7 @@
 .mega-menu-nav-item {
   position: relative;
   margin-right: 32px;
+  z-index: 1001;
 }
 
 .mega-menu-nav-item:last-child {
@@ -66,6 +67,7 @@
   z-index: 1000;
   padding: 24px;
   animation: slideDown 0.2s ease-out;
+  margin-top: -1px; /* Remove gap between nav and panel */
 }
 
 .mega-menu-content {

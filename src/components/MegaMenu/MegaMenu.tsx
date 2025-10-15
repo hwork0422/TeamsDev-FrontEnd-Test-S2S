@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Text } from '@fluentui/react-northstar';
 import { useAppSelector } from '../../hooks/redux';
 import type { MenuItem } from '../../types';
@@ -12,13 +12,21 @@ interface MegaMenuProps {
 const MegaMenu: React.FC<MegaMenuProps> = ({ className }) => {
   const { items } = useAppSelector((state) => state.menu);
   const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = (itemId: string) => {
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout);
+      setHoverTimeout(null);
+    }
     setActiveItem(itemId);
   };
 
   const handleMouseLeave = () => {
-    setActiveItem(null);
+    const timeout = setTimeout(() => {
+      setActiveItem(null);
+    }, 150); // Small delay to prevent flickering
+    setHoverTimeout(timeout);
   };
 
   const handleItemClick = async (item: MenuItem) => {
@@ -26,6 +34,15 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className }) => {
       await TeamsService.openLink(item.url, item.openInTeams);
     }
   };
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (hoverTimeout) {
+        clearTimeout(hoverTimeout);
+      }
+    };
+  }, [hoverTimeout]);
 
   const renderMegaMenuContent = (item: MenuItem) => {
     if (!item.children || item.children.length === 0) return null;
@@ -54,14 +71,16 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className }) => {
   };
 
   return (
-    <div className={`mega-menu-container ${className || ''}`}>
+    <div 
+      className={`mega-menu-container ${className || ''}`}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="mega-menu-nav">
         {items.map((item) => (
           <div
             key={item.id}
             className={`mega-menu-nav-item ${activeItem === item.id ? 'active' : ''}`}
             onMouseEnter={() => handleMouseEnter(item.id)}
-            onMouseLeave={handleMouseLeave}
           >
             <Button
               text
@@ -77,7 +96,6 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className }) => {
         <div 
           className="mega-menu-panel"
           onMouseEnter={() => handleMouseEnter(activeItem)}
-          onMouseLeave={handleMouseLeave}
         >
           {items.find(item => item.id === activeItem) && 
             renderMegaMenuContent(items.find(item => item.id === activeItem)!)
