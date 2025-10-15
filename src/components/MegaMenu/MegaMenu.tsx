@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { Button } from '@fluentui/react-northstar';
-import { useAppSelector, useAppDispatch } from '../../hooks/redux';
-import { setHoveredItem } from '../../store/slices/menuSlice';
+import React, { useState } from 'react';
+import { Button, Text } from '@fluentui/react-northstar';
+import { useAppSelector } from '../../hooks/redux';
 import type { MenuItem } from '../../types';
 import { TeamsService } from '../../services/teamsService';
 import './MegaMenu.css';
@@ -11,19 +10,15 @@ interface MegaMenuProps {
 }
 
 const MegaMenu: React.FC<MegaMenuProps> = ({ className }) => {
-  const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.menu);
   const [activeItem, setActiveItem] = useState<string | null>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = (itemId: string) => {
     setActiveItem(itemId);
-    dispatch(setHoveredItem(itemId));
   };
 
   const handleMouseLeave = () => {
     setActiveItem(null);
-    dispatch(setHoveredItem(null));
   };
 
   const handleItemClick = async (item: MenuItem) => {
@@ -32,87 +27,63 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className }) => {
     }
   };
 
-  const renderMenuItem = (item: MenuItem, level: number = 0): React.ReactNode => {
-    const hasChildren = item.children && item.children.length > 0;
-    const isActive = activeItem === item.id;
+  const renderMegaMenuContent = (item: MenuItem) => {
+    if (!item.children || item.children.length === 0) return null;
 
-    if (level === 0) {
-      // Top level items
-      return (
-        <div
-          key={item.id}
-          className={`mega-menu-item level-${level}`}
-          onMouseEnter={() => handleMouseEnter(item.id)}
-          onMouseLeave={handleMouseLeave}
-          role="menuitem"
-          tabIndex={0}
-          aria-haspopup={hasChildren ? 'true' : 'false'}
-          aria-expanded={isActive ? 'true' : 'false'}
-        >
-          <Button
-            icon={item.icon}
-            onClick={() => handleItemClick(item)}
-            onKeyDown={(e: React.KeyboardEvent) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleItemClick(item);
-              }
-            }}
-            className="mega-menu-button"
-          >
-            {item.label}
-          </Button>
-          {hasChildren && isActive && (
-            <div className="mega-menu-dropdown" role="menu">
-              {item.children!.map((child) => renderMenuItem(child, level + 1))}
-            </div>
-          )}
-        </div>
-      );
-    } else {
-      // Sub-level items
-      return (
-        <div
-          key={item.id}
-          className={`mega-menu-item level-${level}`}
-          onMouseEnter={() => handleMouseEnter(item.id)}
-          onMouseLeave={handleMouseLeave}
-          role="menuitem"
-          tabIndex={0}
-          aria-haspopup={hasChildren ? 'true' : 'false'}
-          aria-expanded={isActive ? 'true' : 'false'}
-        >
-          <Button
-            icon={item.icon}
-            onClick={() => handleItemClick(item)}
-            onKeyDown={(e: React.KeyboardEvent) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleItemClick(item);
-              }
-            }}
-            className="mega-menu-button sub-level"
-          >
-            {item.label}
-          </Button>
-          {hasChildren && isActive && (
-            <div className="mega-menu-dropdown" role="menu">
-              {item.children!.map((child) => renderMenuItem(child, level + 1))}
-            </div>
-          )}
-        </div>
-      );
-    }
+    return (
+      <div className="mega-menu-content">
+        {item.children.map((child, index) => (
+          <div key={child.id} className="mega-menu-column">
+            <Text size="large" weight="semibold" className="mega-menu-section-title">
+              {child.label}
+            </Text>
+            {child.children && child.children.map((subItem) => (
+              <div key={subItem.id} className="mega-menu-link">
+                <Button
+                  text
+                  content={subItem.label}
+                  onClick={() => handleItemClick(subItem)}
+                  className="mega-menu-link-button"
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
-    <div
-      ref={menuRef}
-      className={`mega-menu ${className || ''}`}
-      role="menubar"
-      aria-label="Main navigation menu"
-    >
-      {items.map((item) => renderMenuItem(item))}
+    <div className={`mega-menu-container ${className || ''}`}>
+      <div className="mega-menu-nav">
+        {items.map((item) => (
+          <div
+            key={item.id}
+            className={`mega-menu-nav-item ${activeItem === item.id ? 'active' : ''}`}
+            onMouseEnter={() => handleMouseEnter(item.id)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <Button
+              text
+              content={item.label}
+              onClick={() => handleItemClick(item)}
+              className="mega-menu-nav-button"
+            />
+          </div>
+        ))}
+      </div>
+      
+      {activeItem && (
+        <div 
+          className="mega-menu-panel"
+          onMouseEnter={() => handleMouseEnter(activeItem)}
+          onMouseLeave={handleMouseLeave}
+        >
+          {items.find(item => item.id === activeItem) && 
+            renderMegaMenuContent(items.find(item => item.id === activeItem)!)
+          }
+        </div>
+      )}
     </div>
   );
 };

@@ -12,71 +12,84 @@ const initialState: MenuState = {
   items: [
     {
       id: '1',
-      label: 'Get Menu Item 1',
+      label: 'MenuItem1',
       url: 'https://example.com/item1',
-      icon: 'Home',
       children: [
         {
           id: '1-1',
           label: 'My Career and Benefits',
-          url: 'https://example.com/career',
-          icon: 'User',
           children: [
-            {
-              id: '1-1-1',
-              label: 'Career Development',
-              url: 'https://example.com/career-dev',
-              icon: 'Education',
-            },
-            {
-              id: '1-1-2',
-              label: 'Benefits Overview',
-              url: 'https://example.com/benefits',
-              icon: 'Heart',
-            },
+            { id: '1-1-1', label: 'HRweb', url: 'https://example.com/hrweb' },
+            { id: '1-1-2', label: 'Benefits', url: 'https://example.com/benefits' },
+            { id: '1-1-3', label: 'Learning Portal', url: 'https://example.com/learning' },
+            { id: '1-1-4', label: 'Internal Jobs', url: 'https://example.com/jobs' },
+            { id: '1-1-5', label: 'Company Store', url: 'https://example.com/store' },
+            { id: '1-1-6', label: 'Give', url: 'https://example.com/give' },
           ],
         },
         {
           id: '1-2',
           label: 'Travel and Expense',
-          url: 'https://example.com/travel',
-          icon: 'Airplane',
           children: [
-            {
-              id: '1-2-1',
-              label: 'Book Travel',
-              url: 'https://example.com/book-travel',
-              icon: 'Airplane',
-            },
-            {
-              id: '1-2-2',
-              label: 'Submit Expense',
-              url: 'https://example.com/expense',
-              icon: 'Money',
-            },
+            { id: '1-2-1', label: 'Travel', url: 'https://example.com/travel' },
+            { id: '1-2-2', label: 'Expenses', url: 'https://example.com/expenses' },
+            { id: '1-2-3', label: 'Payments', url: 'https://example.com/payments' },
+            { id: '1-2-4', label: 'US Immigration Travel', url: 'https://example.com/immigration' },
           ],
         },
       ],
     },
     {
       id: '2',
-      label: 'Get Menu Item 2',
+      label: 'MenuItem2',
       url: 'https://example.com/item2',
-      icon: 'Settings',
       children: [
         {
           id: '2-1',
           label: 'IT Services',
-          url: 'https://example.com/it-services',
-          icon: 'Laptop',
+          children: [
+            { id: '2-1-1', label: 'Help Desk', url: 'https://example.com/helpdesk' },
+            { id: '2-1-2', label: 'Software Requests', url: 'https://example.com/software' },
+            { id: '2-1-3', label: 'Network Access', url: 'https://example.com/network' },
+            { id: '2-1-4', label: 'Security', url: 'https://example.com/security' },
+          ],
         },
         {
           id: '2-2',
-          label: 'HR Services',
-          url: 'https://example.com/hr-services',
-          icon: 'People',
+          label: 'Facilities',
+          children: [
+            { id: '2-2-1', label: 'Room Booking', url: 'https://example.com/rooms' },
+            { id: '2-2-2', label: 'Maintenance', url: 'https://example.com/maintenance' },
+            { id: '2-2-3', label: 'Parking', url: 'https://example.com/parking' },
+          ],
         },
       ],
+    },
+    {
+      id: '3',
+      label: 'MenuItem3',
+      url: 'https://example.com/item3',
+      children: [
+        {
+          id: '3-1',
+          label: 'Finance',
+          children: [
+            { id: '3-1-1', label: 'Budget Planning', url: 'https://example.com/budget' },
+            { id: '3-1-2', label: 'Expense Reports', url: 'https://example.com/expense-reports' },
+            { id: '3-1-3', label: 'Invoicing', url: 'https://example.com/invoicing' },
+          ],
+        },
+      ],
+    },
+    {
+      id: '4',
+      label: 'MenuItem4',
+      url: 'https://example.com/item4',
+    },
+    {
+      id: '5',
+      label: 'MenuItem5',
+      url: 'https://example.com/item5',
     },
   ],
   isLoading: false,
