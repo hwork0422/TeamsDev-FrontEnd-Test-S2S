@@ -328,13 +328,49 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
           </Text>
 
           <Flex space="between" vAlign="center">
-            <Input
-              placeholder="Search menu items..."
-              value={searchTerm}
-              onChange={(_, data: any) => setSearchTerm(data?.value || '')}
-              icon="search"
-              clearable
-            />
+            <div style={{ position: 'relative', flex: 1, marginRight: '16px' }}>
+              <input
+                type="text"
+                placeholder="Search menu items..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '8px 12px 8px 36px',
+                  border: '1px solid #d1d1d1',
+                  borderRadius: '4px',
+                  fontSize: '14px'
+                }}
+              />
+              <span style={{
+                position: 'absolute',
+                left: '12px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: '#605e5c',
+                fontSize: '14px'
+              }}>
+                🔍
+              </span>
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  style={{
+                    position: 'absolute',
+                    right: '8px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontSize: '16px',
+                    color: '#605e5c'
+                  }}
+                >
+                  ×
+                </button>
+              )}
+            </div>
             <Button
               primary
               onClick={() => {
