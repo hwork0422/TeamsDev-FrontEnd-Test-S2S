@@ -154,6 +154,11 @@
 }
 
 /* Hamburger Menu */
+.hamburger-container {
+  position: relative;
+  display: inline-block;
+}
+
 .hamburger-menu {
   background: transparent;
   border: none;
@@ -164,7 +169,6 @@
   gap: 3px;
   border-radius: 4px;
   transition: background-color 0.2s ease;
-  position: relative;
 }
 
 .hamburger-menu:hover {
@@ -198,8 +202,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1002;
   min-width: 200px;
-  margin-top: 4px;
-  animation: slideDown 0.2s ease-out;
+  margin-top: 2px;
+  animation: slideDown 0.15s ease-out;
 }
 
 .hamburger-item {

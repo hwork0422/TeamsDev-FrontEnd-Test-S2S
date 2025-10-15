@@ -16,6 +16,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick, onHomeC
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+  const [hamburgerTimeout, setHamburgerTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = (itemId: string) => {
     if (hoverTimeout) {
@@ -38,8 +39,19 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick, onHomeC
     }
   };
 
-  const handleHamburgerClick = () => {
-    setIsHamburgerOpen(!isHamburgerOpen);
+  const handleHamburgerMouseEnter = () => {
+    if (hamburgerTimeout) {
+      clearTimeout(hamburgerTimeout);
+      setHamburgerTimeout(null);
+    }
+    setIsHamburgerOpen(true);
+  };
+
+  const handleHamburgerMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsHamburgerOpen(false);
+    }, 150); // Small delay to prevent flickering
+    setHamburgerTimeout(timeout);
   };
 
   const handleHamburgerMenuClick = (action: string) => {
@@ -65,32 +77,18 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick, onHomeC
     }
   };
 
-  // Cleanup timeout on unmount
+  // Cleanup timeouts on unmount
   useEffect(() => {
     return () => {
       if (hoverTimeout) {
         clearTimeout(hoverTimeout);
       }
-    };
-  }, [hoverTimeout]);
-
-  // Close hamburger menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element;
-      if (isHamburgerOpen && !target.closest('.mega-menu-left')) {
-        setIsHamburgerOpen(false);
+      if (hamburgerTimeout) {
+        clearTimeout(hamburgerTimeout);
       }
     };
+  }, [hoverTimeout, hamburgerTimeout]);
 
-    if (isHamburgerOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isHamburgerOpen]);
 
   const renderMegaMenuContent = (item: MenuItem) => {
     if (!item.children || item.children.length === 0) return null;
@@ -132,29 +130,34 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick, onHomeC
     >
       <div className="mega-menu-nav">
         <div className="mega-menu-left">
-          <button 
-            className={`hamburger-menu ${isHamburgerOpen ? 'active' : ''}`} 
-            title="Menu"
-            onClick={handleHamburgerClick}
+          <div 
+            className="hamburger-container"
+            onMouseEnter={handleHamburgerMouseEnter}
+            onMouseLeave={handleHamburgerMouseLeave}
           >
-            <span className="hamburger-line"></span>
-            <span className="hamburger-line"></span>
-            <span className="hamburger-line"></span>
-          </button>
-          
-          {isHamburgerOpen && (
-            <div className="hamburger-dropdown">
-              <button onClick={() => handleHamburgerMenuClick('home')} className="hamburger-item">
-                🏠 Home
-              </button>
-              <button onClick={() => handleHamburgerMenuClick('settings')} className="hamburger-item">
-                ⚙️ Settings
-              </button>
-              <button onClick={() => handleHamburgerMenuClick('theme')} className="hamburger-item">
-                🌙 Theme ({currentTheme})
-              </button>
-            </div>
-          )}
+            <button 
+              className={`hamburger-menu ${isHamburgerOpen ? 'active' : ''}`} 
+              title="Menu"
+            >
+              <span className="hamburger-line"></span>
+              <span className="hamburger-line"></span>
+              <span className="hamburger-line"></span>
+            </button>
+            
+            {isHamburgerOpen && (
+              <div className="hamburger-dropdown">
+                <button onClick={() => handleHamburgerMenuClick('home')} className="hamburger-item">
+                  🏠 Home
+                </button>
+                <button onClick={() => handleHamburgerMenuClick('settings')} className="hamburger-item">
+                  ⚙️ Settings
+                </button>
+                <button onClick={() => handleHamburgerMenuClick('theme')} className="hamburger-item">
+                  🌙 Theme ({currentTheme})
+                </button>
+              </div>
+            )}
+          </div>
         </div>
         
         <div className="mega-menu-center">
