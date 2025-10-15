@@ -139,8 +139,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick, onHomeC
             <Button 
               className={`hamburger-menu ${isHamburgerOpen ? 'active' : ''}`} 
               title="Menu"
-              icon="more"
-              text
+              icon="menu"
             />
             
             {isHamburgerOpen && (
@@ -187,8 +186,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick, onHomeC
             className="settings-menu" 
             title="Settings" 
             onClick={onSettingsClick}
-            icon="more"
-            text
+            icon="settings"
           />
         </div>
       </div>
