@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Button, Menu } from '@fluentui/react-northstar';
 import { useAppSelector } from '../../hooks/redux';
 import type { MenuItem } from '../../types';
 import { TeamsService } from '../../services/teamsService';
@@ -107,12 +108,12 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick, onHomeC
                 </div>
                 {subItem.children && subItem.children.map((subSubItem) => (
                   <div key={subSubItem.id} className="mega-menu-link">
-                    <button
+                    <Button
                       className="mega-menu-link-button"
                       onClick={() => handleItemClick(subSubItem)}
-                    >
-                      {subSubItem.label}
-                    </button>
+                      content={subSubItem.label}
+                      text
+                    />
                   </div>
                 ))}
               </div>
@@ -135,58 +136,60 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick, onHomeC
             onMouseEnter={handleHamburgerMouseEnter}
             onMouseLeave={handleHamburgerMouseLeave}
           >
-            <button 
+            <Button 
               className={`hamburger-menu ${isHamburgerOpen ? 'active' : ''}`} 
               title="Menu"
-            >
-              <span className="hamburger-line"></span>
-              <span className="hamburger-line"></span>
-              <span className="hamburger-line"></span>
-            </button>
+              icon="more"
+              text
+            />
             
             {isHamburgerOpen && (
               <div className="hamburger-dropdown">
-                <button onClick={() => handleHamburgerMenuClick('home')} className="hamburger-item">
-                  🏠 Home
-                </button>
-                <button onClick={() => handleHamburgerMenuClick('settings')} className="hamburger-item">
-                  ⚙️ Settings
-                </button>
-                <button onClick={() => handleHamburgerMenuClick('theme')} className="hamburger-item">
-                  🌙 Theme ({currentTheme})
-                </button>
+                <Button 
+                  onClick={() => handleHamburgerMenuClick('home')} 
+                  className="hamburger-item"
+                  content="🏠 Home"
+                  text
+                />
+                <Button 
+                  onClick={() => handleHamburgerMenuClick('settings')} 
+                  className="hamburger-item"
+                  content="⚙️ Settings"
+                  text
+                />
+                <Button 
+                  onClick={() => handleHamburgerMenuClick('theme')} 
+                  className="hamburger-item"
+                  content={`🌙 Theme (${currentTheme})`}
+                  text
+                />
               </div>
             )}
           </div>
         </div>
         
         <div className="mega-menu-center">
-          <div className="mega-menu-items">
-            {items.map((item) => (
-              <div
-                key={item.id}
-                className={`mega-menu-nav-item ${activeItem === item.id ? 'active' : ''}`}
-                onMouseEnter={() => handleMouseEnter(item.id)}
-              >
-                <button
-                  className="mega-menu-nav-button"
-                  onClick={() => handleItemClick(item)}
-                >
-                  {item.label}
-                </button>
-              </div>
-            ))}
-          </div>
+          <Menu
+            items={items.map((item) => ({
+              key: item.id,
+              content: item.label,
+              onMouseEnter: () => handleMouseEnter(item.id),
+              onClick: () => handleItemClick(item),
+              className: activeItem === item.id ? 'active' : '',
+            }))}
+            className="mega-menu-items"
+            underlined
+          />
         </div>
         
         <div className="mega-menu-right">
-          <button className="settings-menu" title="Settings" onClick={onSettingsClick}>
-            <span className="three-dots">
-              <span className="dot"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
-            </span>
-          </button>
+          <Button 
+            className="settings-menu" 
+            title="Settings" 
+            onClick={onSettingsClick}
+            icon="more"
+            text
+          />
         </div>
       </div>
       

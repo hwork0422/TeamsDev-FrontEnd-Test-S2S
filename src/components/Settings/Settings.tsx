@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { Button, Input, Checkbox, Flex, Text, Divider, Form, Dialog } from '@fluentui/react-northstar';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { addMenuItem, updateMenuItem, deleteMenuItem } from '../../store/slices/menuSlice';
 import type { MenuItem, MenuItemFormData } from '../../types';
@@ -69,65 +70,52 @@ const MenuItemForm: React.FC<MenuItemFormProps> = ({ item, onSave, onCancel }) =
   };
 
   return (
-    <form onSubmit={handleSubmit} className="menu-item-form">
-      <div className="form-group">
-        <label htmlFor="label">Label *</label>
-        <input
-          id="label"
-          type="text"
-          value={formData.label}
-          onChange={(e) => handleInputChange('label', e.target.value)}
-          placeholder="Enter menu item label"
-          className={errors.label ? 'error' : ''}
+    <Form onSubmit={handleSubmit}>
+      <Flex column gap="gap.medium">
+        <Input
+          label="Label"
           required
+          value={formData.label}
+          onChange={(_, data) => handleInputChange('label', data?.value || '')}
+          placeholder="Enter menu item label"
+          error={!!errors.label}
         />
-        {errors.label && <span className="error-message">{errors.label}</span>}
-      </div>
 
-      <div className="form-group">
-        <label htmlFor="url">URL</label>
-        <input
-          id="url"
+        <Input
+          label="URL"
           type="url"
           value={formData.url}
-          onChange={(e) => handleInputChange('url', e.target.value)}
+          onChange={(_, data) => handleInputChange('url', data?.value || '')}
           placeholder="https://example.com"
-          className={errors.url ? 'error' : ''}
+          error={!!errors.url}
         />
-        {errors.url && <span className="error-message">{errors.url}</span>}
-      </div>
 
-      <div className="form-group">
-        <label htmlFor="icon">Icon</label>
-        <input
-          id="icon"
-          type="text"
+        <Input
+          label="Icon"
           value={formData.icon}
-          onChange={(e) => handleInputChange('icon', e.target.value)}
+          onChange={(_, data) => handleInputChange('icon', data?.value || '')}
           placeholder="Icon name (optional)"
         />
-      </div>
 
-      <div className="form-group">
-        <label className="checkbox-label">
-          <input
-            type="checkbox"
-            checked={formData.openInTeams}
-            onChange={(e) => handleInputChange('openInTeams', e.target.checked)}
+        <Checkbox
+          label="Open in Teams"
+          checked={formData.openInTeams}
+          onChange={(_, data) => handleInputChange('openInTeams', data?.checked || false)}
+        />
+
+        <Flex gap="gap.small">
+          <Button
+            type="submit"
+            primary
+            content={item ? 'Update Item' : 'Add Item'}
           />
-          <span>Open in Teams</span>
-        </label>
-      </div>
-
-      <div className="form-actions">
-        <button type="submit" className="btn btn-primary">
-          {item ? 'Update Item' : 'Add Item'}
-        </button>
-        <button type="button" onClick={onCancel} className="btn btn-secondary">
-          Cancel
-        </button>
-      </div>
-    </form>
+          <Button
+            onClick={onCancel}
+            content="Cancel"
+          />
+        </Flex>
+      </Flex>
+    </Form>
   );
 };
 
@@ -262,30 +250,29 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
         const isMaxDepth = level >= 3; // 0-based indexing, so 3 means 4th level
         return (
           <div key={item.id} className="menu-item" style={{ marginLeft: level * 20 }}>
-            <div className="menu-item-content">
-              <span className="menu-item-label">
+            <Flex space="between" vAlign="center" padding="padding.medium" className="menu-item-content">
+              <Text>
                 {item.label}
-                {isMaxDepth && <span className="depth-indicator"> (Max Depth)</span>}
-              </span>
-              <div className="menu-item-actions">
-                <button
-                  className="btn btn-small btn-secondary"
+                {isMaxDepth && <Text className="depth-indicator"> (Max Depth)</Text>}
+              </Text>
+              <Flex gap="gap.small">
+                <Button
+                  size="small"
+                  content="Edit"
                   onClick={() => {
                     console.log('Edit button clicked for item:', item.id);
                     setSelectedItem(item);
                     setIsEditDialogOpen(true);
                   }}
-                >
-                  Edit
-                </button>
-                <button
-                  className="btn btn-small btn-danger"
+                />
+                <Button
+                  size="small"
+                  content="Delete"
                   onClick={() => handleDeleteItem(item.id)}
-                >
-                  Delete
-                </button>
-                <button
-                  className={`btn btn-small btn-secondary ${isMaxDepth ? 'btn-disabled' : ''}`}
+                />
+                <Button
+                  size="small"
+                  content="Add Child"
                   disabled={isMaxDepth}
                   title={isMaxDepth ? 'Maximum depth (4 levels) reached' : 'Add child item'}
                   onClick={() => {
@@ -295,11 +282,9 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
                       setIsAddDialogOpen(true);
                     }
                   }}
-                >
-                  Add Child
-                </button>
-              </div>
-            </div>
+                />
+              </Flex>
+            </Flex>
             {item.children && item.children.length > 0 && renderMenuItems(item.children, level + 1)}
           </div>
         );
@@ -308,76 +293,63 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
 
   return (
     <div className={`settings ${className || ''}`}>
-      <div className="settings-container">
-        <h1 className="settings-title">
+      <Flex column gap="gap.large">
+        <Text size="large" weight="semibold">
           Configure Navigations
-        </h1>
+        </Text>
 
-        <div className="settings-controls">
-          <div className="search-container">
-            <span className="search-icon">🔍</span>
-            <input
-              type="text"
-              placeholder="Search menu items..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-input"
-            />
-            {searchTerm && (
-              <button
-                className="search-clear"
-                onClick={() => setSearchTerm('')}
-                title="Clear search"
-              >
-                ×
-              </button>
-            )}
-          </div>
-          <button
-            className="btn btn-primary"
+        <Flex space="between" vAlign="center">
+          <Input
+            placeholder="Search menu items..."
+            value={searchTerm}
+            onChange={(_, data) => setSearchTerm(data?.value || '')}
+            icon="search"
+            clearable
+          />
+          <Button
+            primary
+            content="Add Root Item"
             onClick={() => {
               console.log('Add Root Item clicked');
               setSelectedParentId(undefined);
               setIsAddDialogOpen(true);
             }}
-          >
-            Add Root Item
-          </button>
-        </div>
+          />
+        </Flex>
 
-        <hr className="divider" />
+        <Divider />
 
         <div className="menu-tree">
           {renderMenuItems(items)}
         </div>
-      </div>
+      </Flex>
 
-        {/* Add Item Modal */}
-        {isAddDialogOpen && (
-          <div className="modal-overlay" onClick={() => setIsAddDialogOpen(false)}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <h3 className="modal-title">Add Menu Item</h3>
-              <MenuItemForm
-                onSave={handleAddItem}
-                onCancel={() => setIsAddDialogOpen(false)}
-              />
-            </div>
-          </div>
-        )}
+        {/* Add Item Dialog */}
+        <Dialog
+          open={isAddDialogOpen}
+          onOpenChange={(_, data) => setIsAddDialogOpen(data.open)}
+          header="Add Menu Item"
+          content={
+            <MenuItemForm
+              onSave={handleAddItem}
+              onCancel={() => setIsAddDialogOpen(false)}
+            />
+          }
+        />
 
-        {/* Edit Item Modal */}
-        {isEditDialogOpen && (
-          <div className="modal-overlay" onClick={() => setIsEditDialogOpen(false)}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <h3 className="modal-title">Edit Menu Item</h3>
-              <MenuItemForm
-                item={selectedItem || undefined}
-                onSave={handleEditItem}
-                onCancel={() => setIsEditDialogOpen(false)}
-              />
-            </div>
-          </div>
-        )}
+        {/* Edit Item Dialog */}
+        <Dialog
+          open={isEditDialogOpen}
+          onOpenChange={(_, data) => setIsEditDialogOpen(data.open)}
+          header="Edit Menu Item"
+          content={
+            <MenuItemForm
+              item={selectedItem || undefined}
+              onSave={handleEditItem}
+              onCancel={() => setIsEditDialogOpen(false)}
+            />
+          }
+        />
       </div>
   );
 };
