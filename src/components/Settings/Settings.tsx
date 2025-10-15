@@ -1,10 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import {
-  Button,
-  Text,
-  Flex,
-  Divider,
-} from '@fluentui/react-northstar';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { addMenuItem, updateMenuItem, deleteMenuItem } from '../../store/slices/menuSlice';
 import type { MenuItem, MenuItemFormData } from '../../types';
@@ -283,12 +277,12 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
         item.label.toLowerCase().includes(searchTerm.toLowerCase())
       )
       .map(item => (
-        <div key={item.id} style={{ marginLeft: level * 20, marginBottom: 8 }}>
-          <Flex space="between" vAlign="center" padding="padding.medium" style={{ border: '1px solid #ccc', borderRadius: 4 }}>
-            <Text>{item.label}</Text>
-            <Flex gap="gap.small">
-              <Button
-                size="small"
+        <div key={item.id} className="menu-item" style={{ marginLeft: level * 20 }}>
+          <div className="menu-item-content">
+            <span className="menu-item-label">{item.label}</span>
+            <div className="menu-item-actions">
+              <button
+                className="btn btn-small btn-secondary"
                 onClick={() => {
                   console.log('Edit button clicked for item:', item.id);
                   setSelectedItem(item);
@@ -296,15 +290,15 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
                 }}
               >
                 Edit
-              </Button>
-              <Button
-                size="small"
+              </button>
+              <button
+                className="btn btn-small btn-danger"
                 onClick={() => handleDeleteItem(item.id)}
               >
                 Delete
-              </Button>
-              <Button
-                size="small"
+              </button>
+              <button
+                className="btn btn-small btn-secondary"
                 onClick={() => {
                   console.log('Add Child button clicked for item:', item.id);
                   setSelectedParentId(item.id);
@@ -312,9 +306,9 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
                 }}
               >
                 Add Child
-              </Button>
-            </Flex>
-          </Flex>
+              </button>
+            </div>
+          </div>
           {item.children && item.children.length > 0 && renderMenuItems(item.children, level + 1)}
         </div>
       ));
@@ -322,73 +316,44 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
 
   return (
     <div className={`settings ${className || ''}`}>
-        <Flex column gap="gap.large">
-          <Text size="large" weight="semibold">
-            Configure Navigations
-          </Text>
+      <div className="settings-container">
+        <h2 className="settings-title">Configure Navigations</h2>
 
-          <Flex space="between" vAlign="center">
-            <div style={{ position: 'relative', flex: 1, marginRight: '16px' }}>
-              <input
-                type="text"
-                placeholder="Search menu items..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '8px 12px 8px 36px',
-                  border: '1px solid #d1d1d1',
-                  borderRadius: '4px',
-                  fontSize: '14px'
-                }}
-              />
-              <span style={{
-                position: 'absolute',
-                left: '12px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                color: '#605e5c',
-                fontSize: '14px'
-              }}>
-                🔍
-              </span>
-              {searchTerm && (
-                <button
-                  onClick={() => setSearchTerm('')}
-                  style={{
-                    position: 'absolute',
-                    right: '8px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    fontSize: '16px',
-                    color: '#605e5c'
-                  }}
-                >
-                  ×
-                </button>
-              )}
-            </div>
-            <Button
-              primary
-              onClick={() => {
-                console.log('Add Root Item clicked');
-                setSelectedParentId(undefined);
-                setIsAddDialogOpen(true);
-              }}
-            >
-              Add Root Item
-            </Button>
-          </Flex>
-
-          <Divider />
-
-          <div className="menu-tree">
-            {renderMenuItems(items)}
+        <div className="settings-controls">
+          <div className="search-container">
+            <input
+              type="text"
+              placeholder="Search menu items..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
+            />
+            <span className="search-icon">🔍</span>
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm('')}
+                className="search-clear"
+              >
+                ×
+              </button>
+            )}
           </div>
-        </Flex>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              console.log('Add Root Item clicked');
+              setSelectedParentId(undefined);
+              setIsAddDialogOpen(true);
+            }}
+          >
+            Add Root Item
+          </button>
+        </div>
+
+        <div className="menu-tree">
+          {renderMenuItems(items)}
+        </div>
+      </div>
 
         {/* Add Item Modal */}
         {isAddDialogOpen && (

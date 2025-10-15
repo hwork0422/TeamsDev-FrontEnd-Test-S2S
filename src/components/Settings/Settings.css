@@ -2,64 +2,281 @@
   padding: 24px;
   max-width: 1200px;
   margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.settings-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #323130;
+  margin: 0;
+}
+
+.settings-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px 8px 36px;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #0078d4;
+  box-shadow: 0 0 0 1px #0078d4;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #605e5c;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.search-clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #605e5c;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-clear:hover {
+  color: #323130;
+}
+
+/* Button Styles */
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background-color: #0078d4;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #106ebe;
+}
+
+.btn-secondary {
+  background-color: #f3f2f1;
+  color: #323130;
+  border: 1px solid #d1d1d1;
+}
+
+.btn-secondary:hover {
+  background-color: #edebe9;
+}
+
+.btn-danger {
+  background-color: #d13438;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #b71c1c;
+}
+
+.btn-small {
+  padding: 4px 8px;
+  font-size: 12px;
 }
 
 .menu-tree {
-  border: 1px solid var(--colorNeutralStroke1);
+  border: 1px solid #d1d1d1;
   border-radius: 4px;
   padding: 16px;
-  background-color: var(--colorNeutralBackground1);
+  background-color: #ffffff;
   min-height: 400px;
 }
 
-.menu-tree .ui-tree {
-  background: transparent;
-}
-
-.menu-tree .ui-tree__item {
+.menu-item {
   margin-bottom: 8px;
 }
 
-.menu-tree .ui-tree__item__content {
-  padding: 8px 12px;
+.menu-item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid #d1d1d1;
   border-radius: 4px;
+  background-color: #ffffff;
   transition: background-color 0.2s ease;
 }
 
-.menu-tree .ui-tree__item__content:hover {
-  background-color: var(--colorNeutralBackground1Hover);
+.menu-item-content:hover {
+  background-color: #f3f2f1;
 }
 
-.menu-tree .ui-tree__item__content:focus {
-  outline: 2px solid var(--colorBrandForeground1);
-  outline-offset: -2px;
+.menu-item-label {
+  font-size: 14px;
+  color: #323130;
+  font-weight: 500;
+}
+
+.menu-item-actions {
+  display: flex;
+  gap: 8px;
 }
 
 /* Dark theme adjustments */
 [data-theme="dark"] .settings {
-  background-color: var(--colorNeutralBackground1);
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .settings-title {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .search-input {
+  background-color: #2d2d2d;
+  border-color: #484644;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .search-input:focus {
+  border-color: #60cdff;
+  box-shadow: 0 0 0 1px #60cdff;
+}
+
+[data-theme="dark"] .search-icon,
+[data-theme="dark"] .search-clear {
+  color: #c8c6c4;
 }
 
 [data-theme="dark"] .menu-tree {
-  background-color: var(--colorNeutralBackground1);
-  border-color: var(--colorNeutralStroke1);
+  background-color: #1a1a1a;
+  border-color: #484644;
+}
+
+[data-theme="dark"] .menu-item-content {
+  background-color: #2d2d2d;
+  border-color: #484644;
+}
+
+[data-theme="dark"] .menu-item-content:hover {
+  background-color: #3a3a3a;
+}
+
+[data-theme="dark"] .menu-item-label {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .btn-secondary {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  border-color: #484644;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+  background-color: #3a3a3a;
 }
 
 /* Contrast theme adjustments */
+[data-theme="contrast"] .settings {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+[data-theme="contrast"] .settings-title {
+  color: #ffffff;
+}
+
+[data-theme="contrast"] .search-input {
+  background-color: #000000;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+}
+
+[data-theme="contrast"] .search-input:focus {
+  border-color: #ffff00;
+  box-shadow: 0 0 0 1px #ffff00;
+}
+
+[data-theme="contrast"] .search-icon,
+[data-theme="contrast"] .search-clear {
+  color: #ffffff;
+}
+
 [data-theme="contrast"] .menu-tree {
-  border-color: var(--colorNeutralStroke1);
+  background-color: #000000;
+  border: 2px solid #ffffff;
 }
 
-[data-theme="contrast"] .menu-tree .ui-tree__item__content {
-  border: 1px solid transparent;
+[data-theme="contrast"] .menu-item-content {
+  background-color: #000000;
+  border: 2px solid #ffffff;
 }
 
-[data-theme="contrast"] .menu-tree .ui-tree__item__content:hover {
-  border-color: var(--colorNeutralStroke1);
+[data-theme="contrast"] .menu-item-content:hover {
+  border-color: #ffff00;
 }
 
-[data-theme="contrast"] .menu-tree .ui-tree__item__content:focus {
-  border-color: var(--colorBrandForeground1);
+[data-theme="contrast"] .menu-item-label {
+  color: #ffffff;
+}
+
+[data-theme="contrast"] .btn-secondary {
+  background-color: #000000;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+[data-theme="contrast"] .btn-secondary:hover {
+  border-color: #ffff00;
+  color: #ffff00;
+}
+
+[data-theme="contrast"] .btn-primary {
+  background-color: #ffff00;
+  color: #000000;
+}
+
+[data-theme="contrast"] .btn-primary:hover {
+  background-color: #ffffff;
 }
 
 /* Responsive design */
@@ -68,7 +285,27 @@
     padding: 16px;
   }
   
+  .settings-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .search-container {
+    max-width: none;
+  }
+  
   .menu-tree {
     padding: 12px;
+  }
+  
+  .menu-item-actions {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .btn-small {
+    padding: 6px 12px;
+    font-size: 12px;
   }
 }
