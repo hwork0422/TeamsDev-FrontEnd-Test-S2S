@@ -353,7 +353,18 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
   return (
     <div className={`settings ${className || ''}`}>
       <div className="settings-container">
-        <h2 className="settings-title">Configure Navigations</h2>
+        <div className="settings-header">
+          <h2 className="settings-title">Configure Navigations</h2>
+          <button 
+            className="settings-close"
+            onClick={() => {
+              // This will be handled by the parent component
+              window.location.reload(); // Temporary solution
+            }}
+          >
+            ×
+          </button>
+        </div>
 
         <div className="settings-controls">
           <div className="search-container">

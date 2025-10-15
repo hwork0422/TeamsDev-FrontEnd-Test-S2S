@@ -6,9 +6,10 @@ import './MegaMenu.css';
 
 interface MegaMenuProps {
   className?: string;
+  onSettingsClick?: () => void;
 }
 
-const MegaMenu: React.FC<MegaMenuProps> = ({ className }) => {
+const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick }) => {
   const { items } = useAppSelector((state) => state.menu);
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
@@ -82,20 +83,40 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className }) => {
       onMouseLeave={handleMouseLeave}
     >
       <div className="mega-menu-nav">
-        {items.map((item) => (
-          <div
-            key={item.id}
-            className={`mega-menu-nav-item ${activeItem === item.id ? 'active' : ''}`}
-            onMouseEnter={() => handleMouseEnter(item.id)}
-          >
-            <button
-              className="mega-menu-nav-button"
-              onClick={() => handleItemClick(item)}
+        <div className="mega-menu-left">
+          <button className="hamburger-menu">
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+          </button>
+        </div>
+        
+        <div className="mega-menu-center">
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className={`mega-menu-nav-item ${activeItem === item.id ? 'active' : ''}`}
+              onMouseEnter={() => handleMouseEnter(item.id)}
             >
-              {item.label}
-            </button>
-          </div>
-        ))}
+              <button
+                className="mega-menu-nav-button"
+                onClick={() => handleItemClick(item)}
+              >
+                {item.label}
+              </button>
+            </div>
+          ))}
+        </div>
+        
+        <div className="mega-menu-right">
+          <button className="settings-menu" onClick={onSettingsClick}>
+            <span className="three-dots">
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+            </span>
+          </button>
+        </div>
       </div>
       
       {activeItem && (

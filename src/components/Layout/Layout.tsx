@@ -62,40 +62,18 @@ const Layout: React.FC = () => {
     );
   }
 
+  const handleSettingsClick = () => {
+    setActiveTab(activeTab === 'settings' ? 'menu' : 'settings');
+  };
+
   return (
     <div className="layout" data-theme={currentTheme}>
-      <div className="layout-header">
-        <h1>Teams Intranet Navigation</h1>
-        {currentUser && (
-          <div className="user-info">
-            Welcome, {currentUser.displayName}
-          </div>
-        )}
-      </div>
-
-      <div className="tab-list">
-        <div className="tab-buttons">
-          <button
-            className={`tab-button ${activeTab === 'menu' ? 'active' : ''}`}
-            onClick={() => setActiveTab('menu')}
-          >
-            <span className="tab-icon">🧭</span>
-            Navigation
-          </button>
-          <button
-            className={`tab-button ${activeTab === 'settings' ? 'active' : ''}`}
-            onClick={() => setActiveTab('settings')}
-          >
-            <span className="tab-icon">⚙️</span>
-            Settings
-          </button>
+      <MegaMenu onSettingsClick={handleSettingsClick} />
+      {activeTab === 'settings' && (
+        <div className="settings-overlay">
+          <Settings />
         </div>
-      </div>
-
-      <div className="layout-content">
-        {activeTab === 'menu' && <MegaMenu />}
-        {activeTab === 'settings' && <Settings />}
-      </div>
+      )}
     </div>
   );
 };

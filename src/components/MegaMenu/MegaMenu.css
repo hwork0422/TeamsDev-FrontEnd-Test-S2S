@@ -8,10 +8,30 @@
 .mega-menu-nav {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 24px;
   background-color: #ffffff;
   border-bottom: 1px solid #e1dfdd;
   min-height: 48px;
+}
+
+.mega-menu-left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.mega-menu-center {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.mega-menu-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .mega-menu-nav-item {
@@ -127,6 +147,59 @@
   background: transparent;
 }
 
+/* Hamburger Menu */
+.hamburger-menu {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.hamburger-menu:hover {
+  background-color: #f3f2f1;
+}
+
+.hamburger-line {
+  width: 18px;
+  height: 2px;
+  background-color: #323130;
+  border-radius: 1px;
+  transition: all 0.2s ease;
+}
+
+/* Three Dots Menu */
+.settings-menu {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.settings-menu:hover {
+  background-color: #f3f2f1;
+}
+
+.three-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: center;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  background-color: #323130;
+  border-radius: 50%;
+}
+
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -187,6 +260,22 @@
   color: #60cdff;
 }
 
+[data-theme="dark"] .hamburger-menu:hover {
+  background-color: #2d2d2d;
+}
+
+[data-theme="dark"] .hamburger-line {
+  background-color: #ffffff;
+}
+
+[data-theme="dark"] .settings-menu:hover {
+  background-color: #2d2d2d;
+}
+
+[data-theme="dark"] .dot {
+  background-color: #ffffff;
+}
+
 /* Contrast theme adjustments */
 [data-theme="contrast"] .mega-menu-container {
   background-color: #000000;
@@ -235,6 +324,24 @@
 [data-theme="contrast"] .mega-menu-link-button:hover {
   color: #ffff00;
   border-color: #ffffff;
+}
+
+[data-theme="contrast"] .hamburger-menu:hover {
+  background-color: #000000;
+  border: 1px solid #ffffff;
+}
+
+[data-theme="contrast"] .hamburger-line {
+  background-color: #ffffff;
+}
+
+[data-theme="contrast"] .settings-menu:hover {
+  background-color: #000000;
+  border: 1px solid #ffffff;
+}
+
+[data-theme="contrast"] .dot {
+  background-color: #ffffff;
 }
 
 /* Responsive design */
