@@ -1,8 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import {
   Button,
-  Input,
-  Checkbox,
   Text,
   Flex,
   Divider,
@@ -78,46 +76,107 @@ const MenuItemForm: React.FC<MenuItemFormProps> = ({ item, onSave, onCancel }) =
 
   return (
     <form onSubmit={handleSubmit}>
-      <Flex column gap="gap.medium">
-        <Input
-          label="Label"
-          value={formData.label}
-          onChange={(_, data: any) => handleInputChange('label', data?.value || '')}
-          error={!!errors.label}
-          required
-          placeholder="Enter menu item label"
-        />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div>
+          <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>Label *</label>
+          <input
+            type="text"
+            value={formData.label}
+            onChange={(e) => handleInputChange('label', e.target.value)}
+            placeholder="Enter menu item label"
+            required
+            style={{
+              width: '100%',
+              padding: '8px 12px',
+              border: errors.label ? '1px solid #d13438' : '1px solid #d1d1d1',
+              borderRadius: '4px',
+              fontSize: '14px'
+            }}
+          />
+          {errors.label && <div style={{ color: '#d13438', fontSize: '12px', marginTop: '4px' }}>{errors.label}</div>}
+        </div>
 
-        <Input
-          label="URL"
-          value={formData.url}
-          onChange={(_, data: any) => handleInputChange('url', data?.value || '')}
-          error={!!errors.url}
-          placeholder="https://example.com"
-        />
+        <div>
+          <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>URL</label>
+          <input
+            type="url"
+            value={formData.url}
+            onChange={(e) => handleInputChange('url', e.target.value)}
+            placeholder="https://example.com"
+            style={{
+              width: '100%',
+              padding: '8px 12px',
+              border: errors.url ? '1px solid #d13438' : '1px solid #d1d1d1',
+              borderRadius: '4px',
+              fontSize: '14px'
+            }}
+          />
+          {errors.url && <div style={{ color: '#d13438', fontSize: '12px', marginTop: '4px' }}>{errors.url}</div>}
+        </div>
 
-        <Input
-          label="Icon"
-          value={formData.icon}
-          onChange={(_, data: any) => handleInputChange('icon', data?.value || '')}
-          placeholder="Icon name (optional)"
-        />
+        <div>
+          <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>Icon</label>
+          <input
+            type="text"
+            value={formData.icon}
+            onChange={(e) => handleInputChange('icon', e.target.value)}
+            placeholder="Icon name (optional)"
+            style={{
+              width: '100%',
+              padding: '8px 12px',
+              border: '1px solid #d1d1d1',
+              borderRadius: '4px',
+              fontSize: '14px'
+            }}
+          />
+        </div>
 
-        <Checkbox
-          label="Open in Teams"
-          checked={formData.openInTeams}
-          onChange={(_, data: any) => handleInputChange('openInTeams', data?.checked || false)}
-        />
+        <div>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <input
+              type="checkbox"
+              checked={formData.openInTeams}
+              onChange={(e) => handleInputChange('openInTeams', e.target.checked)}
+              style={{ margin: 0 }}
+            />
+            <span style={{ fontWeight: '600' }}>Open in Teams</span>
+          </label>
+        </div>
 
-        <Flex gap="gap.small">
-          <Button type="submit" primary>
+        <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
+          <button 
+            type="submit" 
+            style={{
+              backgroundColor: '#0078d4',
+              color: 'white',
+              border: 'none',
+              padding: '8px 16px',
+              borderRadius: '4px',
+              fontSize: '14px',
+              fontWeight: '600',
+              cursor: 'pointer'
+            }}
+          >
             {item ? 'Update' : 'Add'} Item
-          </Button>
-          <Button onClick={onCancel}>
+          </button>
+          <button 
+            type="button"
+            onClick={onCancel}
+            style={{
+              backgroundColor: 'white',
+              color: '#323130',
+              border: '1px solid #d1d1d1',
+              padding: '8px 16px',
+              borderRadius: '4px',
+              fontSize: '14px',
+              fontWeight: '600',
+              cursor: 'pointer'
+            }}
+          >
             Cancel
-          </Button>
-        </Flex>
-      </Flex>
+          </button>
+        </div>
+      </div>
     </form>
   );
 };
