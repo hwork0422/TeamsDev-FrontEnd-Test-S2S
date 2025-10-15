@@ -60,8 +60,12 @@ const MenuItemForm: React.FC<MenuItemFormProps> = ({ item, onSave, onCancel }) =
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Form submitted with data:', formData);
     if (validateForm()) {
+      console.log('Form is valid, calling onSave');
       onSave(formData);
+    } else {
+      console.log('Form validation failed');
     }
   };
 
@@ -129,13 +133,32 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleAddItem = useCallback((data: MenuItemFormData) => {
+    console.log('Adding item:', data);
     const sanitizedData = StorageService.sanitizeMenuItem({
       id: Date.now().toString(),
       ...data,
     } as MenuItem);
 
     dispatch(addMenuItem({ parentId: selectedParentId, item: sanitizedData }));
-    StorageService.saveMenuItems([...items, sanitizedData]);
+    
+    // Update the items array and save to storage
+    const updatedItems = selectedParentId 
+      ? items.map(item => {
+          if (item.id === selectedParentId) {
+            return { ...item, children: [...(item.children || []), sanitizedData] };
+          }
+          if (item.children) {
+            return { ...item, children: item.children.map(child => 
+              child.id === selectedParentId 
+                ? { ...child, children: [...(child.children || []), sanitizedData] }
+                : child
+            )};
+          }
+          return item;
+        })
+      : [...items, sanitizedData];
+    
+    StorageService.saveMenuItems(updatedItems);
     
     setIsAddDialogOpen(false);
     setSelectedParentId(undefined);
@@ -144,6 +167,7 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
   const handleEditItem = useCallback((data: MenuItemFormData) => {
     if (!selectedItem) return;
 
+    console.log('Editing item:', selectedItem.id, data);
     const sanitizedData = StorageService.sanitizeMenuItem({
       ...selectedItem,
       ...data,
@@ -207,6 +231,7 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
               <Button
                 size="small"
                 onClick={() => {
+                  console.log('Edit button clicked for item:', item.id);
                   setSelectedItem(item);
                   setIsEditDialogOpen(true);
                 }}
@@ -222,6 +247,7 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
               <Button
                 size="small"
                 onClick={() => {
+                  console.log('Add Child button clicked for item:', item.id);
                   setSelectedParentId(item.id);
                   setIsAddDialogOpen(true);
                 }}
@@ -253,6 +279,7 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
             <Button
               primary
               onClick={() => {
+                console.log('Add Root Item clicked');
                 setSelectedParentId(undefined);
                 setIsAddDialogOpen(true);
               }}
