@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Flex } from '@fluentui/react-northstar';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { setTheme, setTeamsTheme } from '../../store/slices/themeSlice';
 import { setUser, setInitialized } from '../../store/slices/userSlice';
@@ -75,22 +74,22 @@ const Layout: React.FC = () => {
       </div>
 
       <div className="tab-list">
-        <Flex gap="gap.medium" padding="padding.medium">
-          <Button
-            primary={activeTab === 'menu'}
-            icon="navigation"
+        <div className="tab-buttons">
+          <button
+            className={`tab-button ${activeTab === 'menu' ? 'active' : ''}`}
             onClick={() => setActiveTab('menu')}
           >
+            <span className="tab-icon">🧭</span>
             Navigation
-          </Button>
-          <Button
-            primary={activeTab === 'settings'}
-            icon="settings"
+          </button>
+          <button
+            className={`tab-button ${activeTab === 'settings' ? 'active' : ''}`}
             onClick={() => setActiveTab('settings')}
           >
+            <span className="tab-icon">⚙️</span>
             Settings
-          </Button>
-        </Flex>
+          </button>
+        </div>
       </div>
 
       <div className="layout-content">
