@@ -123,6 +123,25 @@
   font-size: 12px;
 }
 
+.btn-disabled {
+  background-color: #f3f2f1;
+  color: #a19f9d;
+  border: 1px solid #d1d1d1;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-disabled:hover {
+  background-color: #f3f2f1;
+  color: #a19f9d;
+}
+
+.depth-indicator {
+  color: #d13438;
+  font-size: 12px;
+  font-weight: 500;
+}
+
 .menu-tree {
   border: 1px solid #d1d1d1;
   border-radius: 4px;
@@ -252,6 +271,21 @@
   color: #ffffff;
 }
 
+[data-theme="dark"] .btn-disabled {
+  background-color: #2d2d2d;
+  color: #605e5c;
+  border-color: #484644;
+}
+
+[data-theme="dark"] .btn-disabled:hover {
+  background-color: #2d2d2d;
+  color: #605e5c;
+}
+
+[data-theme="dark"] .depth-indicator {
+  color: #ff6b6b;
+}
+
 /* Contrast theme adjustments */
 [data-theme="contrast"] .settings {
   background-color: #000000;
@@ -323,6 +357,21 @@
 
 [data-theme="contrast"] .modal-title {
   color: #ffffff;
+}
+
+[data-theme="contrast"] .btn-disabled {
+  background-color: #000000;
+  color: #808080;
+  border: 2px solid #808080;
+}
+
+[data-theme="contrast"] .btn-disabled:hover {
+  background-color: #000000;
+  color: #808080;
+}
+
+[data-theme="contrast"] .depth-indicator {
+  color: #ff0000;
 }
 
 /* Responsive design */

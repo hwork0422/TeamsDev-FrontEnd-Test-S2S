@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Text } from '@fluentui/react-northstar';
 import { useAppSelector } from '../../hooks/redux';
 import type { MenuItem } from '../../types';
 import { TeamsService } from '../../services/teamsService';
@@ -51,17 +50,24 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className }) => {
       <div className="mega-menu-content">
         {item.children.map((child, index) => (
           <div key={child.id} className="mega-menu-column">
-            <Text size="large" weight="semibold" className="mega-menu-section-title">
+            <h3 className="mega-menu-section-title">
               {child.label}
-            </Text>
+            </h3>
             {child.children && child.children.map((subItem) => (
-              <div key={subItem.id} className="mega-menu-link">
-                <Button
-                  text
-                  content={subItem.label}
-                  onClick={() => handleItemClick(subItem)}
-                  className="mega-menu-link-button"
-                />
+              <div key={subItem.id} className="mega-menu-subsection">
+                <h4 className="mega-menu-subsection-title">
+                  {subItem.label}
+                </h4>
+                {subItem.children && subItem.children.map((subSubItem) => (
+                  <div key={subSubItem.id} className="mega-menu-link">
+                    <button
+                      className="mega-menu-link-button"
+                      onClick={() => handleItemClick(subSubItem)}
+                    >
+                      {subSubItem.label}
+                    </button>
+                  </div>
+                ))}
               </div>
             ))}
           </div>
@@ -82,12 +88,12 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className }) => {
             className={`mega-menu-nav-item ${activeItem === item.id ? 'active' : ''}`}
             onMouseEnter={() => handleMouseEnter(item.id)}
           >
-            <Button
-              text
-              content={item.label}
-              onClick={() => handleItemClick(item)}
+            <button
               className="mega-menu-nav-button"
-            />
+              onClick={() => handleItemClick(item)}
+            >
+              {item.label}
+            </button>
           </div>
         ))}
       </div>

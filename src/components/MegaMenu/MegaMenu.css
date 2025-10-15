@@ -83,33 +83,48 @@
 }
 
 .mega-menu-section-title {
-  color: #323130 !important;
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  margin-bottom: 16px !important;
-  display: block !important;
+  color: #323130;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  margin-top: 0;
+  display: block;
+}
+
+.mega-menu-subsection {
+  margin-bottom: 16px;
+}
+
+.mega-menu-subsection-title {
+  color: #323130;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  margin-top: 0;
+  display: block;
 }
 
 .mega-menu-link {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .mega-menu-link-button {
-  background: transparent !important;
-  border: none !important;
-  color: #323130 !important;
-  padding: 8px 0 !important;
-  font-size: 14px !important;
-  font-weight: 400 !important;
-  text-align: left !important;
-  justify-content: flex-start !important;
-  width: 100% !important;
-  transition: color 0.2s ease !important;
+  background: transparent;
+  border: none;
+  color: #323130;
+  padding: 6px 0;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  width: 100%;
+  transition: color 0.2s ease;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .mega-menu-link-button:hover {
-  color: #0078d4 !important;
-  background: transparent !important;
+  color: #0078d4;
+  background: transparent;
 }
 
 @keyframes slideDown {
@@ -157,15 +172,19 @@
 }
 
 [data-theme="dark"] .mega-menu-section-title {
-  color: #ffffff !important;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .mega-menu-subsection-title {
+  color: #ffffff;
 }
 
 [data-theme="dark"] .mega-menu-link-button {
-  color: #ffffff !important;
+  color: #ffffff;
 }
 
 [data-theme="dark"] .mega-menu-link-button:hover {
-  color: #60cdff !important;
+  color: #60cdff;
 }
 
 /* Contrast theme adjustments */
@@ -201,17 +220,21 @@
 }
 
 [data-theme="contrast"] .mega-menu-section-title {
-  color: #ffffff !important;
+  color: #ffffff;
+}
+
+[data-theme="contrast"] .mega-menu-subsection-title {
+  color: #ffffff;
 }
 
 [data-theme="contrast"] .mega-menu-link-button {
-  color: #ffffff !important;
-  border: 1px solid transparent !important;
+  color: #ffffff;
+  border: 1px solid transparent;
 }
 
 [data-theme="contrast"] .mega-menu-link-button:hover {
-  color: #ffff00 !important;
-  border-color: #ffffff !important;
+  color: #ffff00;
+  border-color: #ffffff;
 }
 
 /* Responsive design */

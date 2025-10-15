@@ -185,24 +185,50 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Helper function to calculate the depth of a menu item
+  const getItemDepth = (items: MenuItem[], targetId: string, currentDepth: number = 0): number => {
+    for (const item of items) {
+      if (item.id === targetId) {
+        return currentDepth;
+      }
+      if (item.children) {
+        const childDepth = getItemDepth(item.children, targetId, currentDepth + 1);
+        if (childDepth !== -1) {
+          return childDepth;
+        }
+      }
+    }
+    return -1;
+  };
+
   const handleAddItem = useCallback((data: MenuItemFormData) => {
     console.log('Adding item:', data);
+    
+    // Check if adding this item would exceed the 4-level limit
+    if (selectedParentId) {
+      const parentDepth = getItemDepth(items, selectedParentId);
+      if (parentDepth >= 3) { // 0-based indexing, so 3 means 4th level
+        alert('Cannot add more than 4 levels of navigation. Maximum depth reached.');
+        return;
+      }
+    }
+
     const sanitizedData = StorageService.sanitizeMenuItem({
       id: Date.now().toString(),
       ...data,
     } as MenuItem);
 
     dispatch(addMenuItem({ parentId: selectedParentId, item: sanitizedData }));
-    
+
     // Update the items array and save to storage
-    const updatedItems = selectedParentId 
+    const updatedItems = selectedParentId
       ? items.map(item => {
           if (item.id === selectedParentId) {
             return { ...item, children: [...(item.children || []), sanitizedData] };
           }
           if (item.children) {
-            return { ...item, children: item.children.map(child => 
-              child.id === selectedParentId 
+            return { ...item, children: item.children.map(child =>
+              child.id === selectedParentId
                 ? { ...child, children: [...(child.children || []), sanitizedData] }
                 : child
             )};
@@ -210,9 +236,9 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
           return item;
         })
       : [...items, sanitizedData];
-    
+
     StorageService.saveMenuItems(updatedItems);
-    
+
     setIsAddDialogOpen(false);
     setSelectedParentId(undefined);
   }, [dispatch, items, selectedParentId]);
@@ -276,42 +302,52 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
         !searchTerm || 
         item.label.toLowerCase().includes(searchTerm.toLowerCase())
       )
-      .map(item => (
-        <div key={item.id} className="menu-item" style={{ marginLeft: level * 20 }}>
-          <div className="menu-item-content">
-            <span className="menu-item-label">{item.label}</span>
-            <div className="menu-item-actions">
-              <button
-                className="btn btn-small btn-secondary"
-                onClick={() => {
-                  console.log('Edit button clicked for item:', item.id);
-                  setSelectedItem(item);
-                  setIsEditDialogOpen(true);
-                }}
-              >
-                Edit
-              </button>
-              <button
-                className="btn btn-small btn-danger"
-                onClick={() => handleDeleteItem(item.id)}
-              >
-                Delete
-              </button>
-              <button
-                className="btn btn-small btn-secondary"
-                onClick={() => {
-                  console.log('Add Child button clicked for item:', item.id);
-                  setSelectedParentId(item.id);
-                  setIsAddDialogOpen(true);
-                }}
-              >
-                Add Child
-              </button>
+      .map(item => {
+        const isMaxDepth = level >= 3; // 0-based indexing, so 3 means 4th level
+        return (
+          <div key={item.id} className="menu-item" style={{ marginLeft: level * 20 }}>
+            <div className="menu-item-content">
+              <span className="menu-item-label">
+                {item.label}
+                {isMaxDepth && <span className="depth-indicator"> (Max Depth)</span>}
+              </span>
+              <div className="menu-item-actions">
+                <button
+                  className="btn btn-small btn-secondary"
+                  onClick={() => {
+                    console.log('Edit button clicked for item:', item.id);
+                    setSelectedItem(item);
+                    setIsEditDialogOpen(true);
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn btn-small btn-danger"
+                  onClick={() => handleDeleteItem(item.id)}
+                >
+                  Delete
+                </button>
+                <button
+                  className={`btn btn-small ${isMaxDepth ? 'btn-disabled' : 'btn-secondary'}`}
+                  onClick={() => {
+                    if (!isMaxDepth) {
+                      console.log('Add Child button clicked for item:', item.id);
+                      setSelectedParentId(item.id);
+                      setIsAddDialogOpen(true);
+                    }
+                  }}
+                  disabled={isMaxDepth}
+                  title={isMaxDepth ? 'Maximum depth (4 levels) reached' : 'Add child item'}
+                >
+                  Add Child
+                </button>
+              </div>
             </div>
+            {item.children && item.children.length > 0 && renderMenuItems(item.children, level + 1)}
           </div>
-          {item.children && item.children.length > 0 && renderMenuItems(item.children, level + 1)}
-        </div>
-      ));
+        );
+      });
   };
 
   return (
