@@ -1,0 +1,69 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.16/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.16",
+  "version": "1.0.0",
+  "id": "00000000-0000-0000-0000-000000000000",
+  "packageName": "com.solutions2share.teamsdev.frontend.test",
+  "developer": {
+    "name": "Solutions2Share GmbH",
+    "websiteUrl": "https://www.solutions2share.net",
+    "privacyUrl": "https://www.solutions2share.net/privacy",
+    "termsOfUseUrl": "https://www.solutions2share.net/terms"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "Intranet Navigation",
+    "full": "Teams Intranet Navigation App"
+  },
+  "description": {
+    "short": "Configurable multi-level navigation menu for Teams",
+    "full": "A configurable multi-level mega menu application for Microsoft Teams that allows users to create, edit, and manage navigation items with persistent storage and Teams theme integration."
+  },
+  "accentColor": "#0078D4",
+  "bots": [],
+  "composeExtensions": [],
+  "configurableTabs": [
+    {
+      "configurationUrl": "https://your-app-url.azurewebsites.net",
+      "canUpdateConfiguration": true,
+      "scopes": [
+        "team",
+        "groupchat"
+      ]
+    }
+  ],
+  "staticTabs": [
+    {
+      "entityId": "navigation",
+      "name": "Navigation",
+      "contentUrl": "https://your-app-url.azurewebsites.net",
+      "websiteUrl": "https://your-app-url.azurewebsites.net",
+      "scopes": [
+        "personal"
+      ]
+    },
+    {
+      "entityId": "settings",
+      "name": "Settings",
+      "contentUrl": "https://your-app-url.azurewebsites.net?tab=settings",
+      "websiteUrl": "https://your-app-url.azurewebsites.net?tab=settings",
+      "scopes": [
+        "personal"
+      ]
+    }
+  ],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "validDomains": [
+    "your-app-url.azurewebsites.net"
+  ],
+  "webApplicationInfo": {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "resource": "https://graph.microsoft.com"
+  }
+}
