@@ -64,12 +64,13 @@
 }
 
 .react-mega-menu-center {
-  /* flex: 1 !important; */
+  flex: 0 1 auto !important;
   justify-content: flex-start !important;
+  min-width: 0 !important; /* Allow shrinking */
 }
 
 .react-mega-menu-right {
-  /* flex-shrink: 0 !important; */
+  flex-shrink: 0 !important;
 }
 
 /* ==========================================================================
@@ -351,5 +352,55 @@
   
   .mega-menu-right-panel {
     padding: 16px !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive Menu Wrapping
+   ========================================================================== */
+
+/* Override ReactMegaMenu inline styles for better wrapping */
+.react-mega-menu-center ul {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.react-mega-menu-center li {
+  padding: 12px 0 !important;
+  margin: 0 !important;
+  margin-right: 32px !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+
+/* Responsive breakpoints for menu wrapping */
+@media (max-width: 1200px) {
+  .react-mega-menu-center li {
+    margin-right: 24px !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .react-mega-menu-center li {
+    margin-right: 20px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .react-mega-menu-center li {
+    margin-right: 16px !important;
+    padding: 8px 0 !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .react-mega-menu-center li {
+    margin-right: 12px !important;
+    padding: 6px 0 !important;
   }
 }

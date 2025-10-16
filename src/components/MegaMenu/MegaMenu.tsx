@@ -178,13 +178,14 @@ const MegaMenuComponent: React.FC<ReactMegaMenuProps> = ({ className, onSettings
               menuProps: {
                 style: {
                   display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '0',
                 }
               },
               menuItemProps: {
                 style: {
                   padding: '12px 0',
                   margin: '0',
-                  marginRight: '32px',
                   cursor: 'pointer',
                 }
               },
@@ -200,7 +201,7 @@ const MegaMenuComponent: React.FC<ReactMegaMenuProps> = ({ className, onSettings
                   left: '0',
                   right: '0',
                   zIndex: '1000',
-                  marginTop: '-10px',
+                  marginTop: '2px',
                   minHeight: '100px',
                 },
               }
