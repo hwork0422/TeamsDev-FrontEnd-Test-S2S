@@ -50,7 +50,7 @@ const MegaMenuComponent: React.FC<ReactMegaMenuProps> = ({ className, onSettings
   const transformMenuItems = (items: MenuItem[]) => {
     return items.map((item) => {
       const menuItem = {
-        label: item.label,
+        label: item.label.length > 50 ? item.label.substring(0, 50) + '...' : item.label,
         key: item.id,
         items: item.children && item.children.length > 0 ? (
           <div className="mega-menu-content">
@@ -87,7 +87,7 @@ const MegaMenuComponent: React.FC<ReactMegaMenuProps> = ({ className, onSettings
                           }}
                         />
                       )}
-                      {child.label}
+                      {child.label.length > 50 ? child.label.substring(0, 50) + '...' : child.label}
                     </Flex>
                   </Button>
                 </div>
@@ -113,7 +113,7 @@ const MegaMenuComponent: React.FC<ReactMegaMenuProps> = ({ className, onSettings
                             }}
                           />
                         )}
-                        {subItem.label}
+                        {subItem.label.length > 50 ? subItem.label.substring(0, 50) + '...' : subItem.label}
                       </Flex>
                     </div>
                     {subItem.children && subItem.children.map((subSubItem) => (
@@ -134,7 +134,7 @@ const MegaMenuComponent: React.FC<ReactMegaMenuProps> = ({ className, onSettings
                                 }}
                               />
                             )}
-                            {subSubItem.label}
+                            {subSubItem.label.length > 20 ? subSubItem.label.substring(0, 20) + '...' : subSubItem.label}
                           </Flex>
                         </Button>
                       </div>

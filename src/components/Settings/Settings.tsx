@@ -333,7 +333,7 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
                                         />
                                     )}
                                     <Text>
-                                        {item.label}
+                                        {item.label.length > 50 ? item.label.substring(0, 50) + '...' : item.label}
                                         {isMaxDepth && <Text className="depth-indicator"> (Max Depth)</Text>}
                                     </Text>
                                 </Flex>
