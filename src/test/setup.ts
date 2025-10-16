@@ -1,5 +1,14 @@
 import '@testing-library/jest-dom';
+import { vi } from 'vitest';
 
+// Global type declarations
+declare global {
+  var mockTeamsSDK: any;
+  var localStorageMock: any;
+}
+
+// COMMENTED OUT - Microsoft Teams SDK Mock
+/*
 // Mock Microsoft Teams SDK
 const mockTeamsSDK = {
   app: {
@@ -11,6 +20,11 @@ const mockTeamsSDK = {
         displayName: 'Test User',
         userPrincipalName: 'test@example.com',
       },
+      page: {
+        id: 'test-page-id',
+        frameContext: 'content',
+      },
+      dialogParameters: {},
     }),
     registerOnThemeChangeHandler: vi.fn(),
   },
@@ -30,6 +44,7 @@ vi.mock('@microsoft/teams-js', () => ({
   app: mockTeamsSDK.app,
   pages: mockTeamsSDK.pages,
 }));
+*/
 
 // Mock localStorage
 const localStorageMock = {
@@ -53,7 +68,7 @@ Object.defineProperty(window, 'open', {
 });
 
 // Make mocks available globally for tests
-global.mockTeamsSDK = mockTeamsSDK;
+// global.mockTeamsSDK = mockTeamsSDK; // COMMENTED OUT - Teams related
 global.localStorageMock = localStorageMock;
 
 // Mock Fluent UI theme to prevent fontFaces errors
@@ -61,7 +76,7 @@ vi.mock('@fluentui/react-northstar', async () => {
   const actual = await vi.importActual('@fluentui/react-northstar');
   return {
     ...actual,
-    Provider: ({ children, ...props }: any) => {
+    Provider: ({ children }: any) => {
       return children;
     },
   };

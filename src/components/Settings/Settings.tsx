@@ -126,7 +126,7 @@ const MenuItemForm: React.FC<MenuItemFormProps> = ({ item, onSave, onCancel }) =
 
 const Settings: React.FC<SettingsProps> = ({ className }) => {
     const dispatch = useAppDispatch();
-    const { items } = useAppSelector((state) => state.menu);
+    const { items } = useAppSelector((state: { menu: { items: MenuItem[] } }) => state.menu);
 
     const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
     const [selectedParentId, setSelectedParentId] = useState<string | undefined>();
@@ -174,7 +174,7 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
 
         // Update the items array and save to storage
         const updatedItems = selectedParentId
-            ? items.map(item => {
+            ? items.map((item: MenuItem) => {
                 if (item.id === selectedParentId) {
                     return { ...item, children: [...(item.children || []), sanitizedData] };
                 }
