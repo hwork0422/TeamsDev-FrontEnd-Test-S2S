@@ -44,18 +44,3 @@ export interface ValidationError {
   field: string;
   message: string;
 }
-
-// ReactMegaMenu data
-export interface ReactMegaMenuData {
-  label: string;
-  key: string;
-  items: ReactMegaMenuData[];
-}
-
-// ReactMegaMenu props
-export interface ReactMegaMenuProps {
-  data: ReactMegaMenuData[];
-  tolerance: number;
-  styleConfig: any;
-  onExit: () => void;
-}

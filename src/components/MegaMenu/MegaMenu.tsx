@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactMegaMenu } from 'react-mega-menu';
+import ReactMegaMenu from 'react-mega-menu';
 import { Button, Flex } from '@fluentui/react-northstar';
 import { MenuIcon, MoreIcon } from '@fluentui/react-icons-northstar';
 import { useAppSelector } from '../../hooks/redux';
