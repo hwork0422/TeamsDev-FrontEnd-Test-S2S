@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReactMegaMenu } from 'react-mega-menu';
-import { Button } from '@fluentui/react-northstar';
+import { Button, Flex } from '@fluentui/react-northstar';
 import { MenuIcon, MoreIcon } from '@fluentui/react-icons-northstar';
 import { useAppSelector } from '../../hooks/redux';
 import type { MenuItem } from '../../types';
@@ -76,7 +76,19 @@ const MegaMenuComponent: React.FC<ReactMegaMenuProps> = ({ className, onSettings
                       fontWeight: 600,
                     }}
                   >
-                    {child.label}
+                    <Flex vAlign="center" gap="gap.small">
+                      {child.icon && (
+                        <img 
+                          src={child.icon} 
+                          alt={`${child.label} icon`}
+                          className="mega-menu-icon"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                          }}
+                        />
+                      )}
+                      {child.label}
+                    </Flex>
                   </Button>
                 </div>
               );
@@ -90,7 +102,19 @@ const MegaMenuComponent: React.FC<ReactMegaMenuProps> = ({ className, onSettings
                 return selectedChild.children && selectedChild.children.map((subItem) => (
                   <div key={subItem.id} className="mega-menu-column">
                     <div className="mega-menu-section-title" onClick={() => handleSectionClick(subItem)}>
-                      {subItem.label}
+                      <Flex vAlign="center" gap="gap.small">
+                        {subItem.icon && (
+                          <img 
+                            src={subItem.icon} 
+                            alt={`${subItem.label} icon`}
+                            className="mega-menu-icon"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
+                        )}
+                        {subItem.label}
+                      </Flex>
                     </div>
                     {subItem.children && subItem.children.map((subSubItem) => (
                       <div key={subSubItem.id} className="mega-menu-link">
@@ -99,7 +123,19 @@ const MegaMenuComponent: React.FC<ReactMegaMenuProps> = ({ className, onSettings
                           onClick={() => handleItemClick(subSubItem)}
                           text
                         >
-                          {subSubItem.label}
+                          <Flex vAlign="center" gap="gap.small">
+                            {subSubItem.icon && (
+                              <img 
+                                src={subSubItem.icon} 
+                                alt={`${subSubItem.label} icon`}
+                                className="mega-menu-icon"
+                                onError={(e) => {
+                                  e.currentTarget.style.display = 'none';
+                                }}
+                              />
+                            )}
+                            {subSubItem.label}
+                          </Flex>
                         </Button>
                       </div>
                     ))}
@@ -108,7 +144,7 @@ const MegaMenuComponent: React.FC<ReactMegaMenuProps> = ({ className, onSettings
               })()}
             </div>
           </div>
-        ) : undefined,
+        ) : <></>,
       };
       return menuItem;
     });
@@ -134,6 +170,11 @@ const MegaMenuComponent: React.FC<ReactMegaMenuProps> = ({ className, onSettings
             data={menuData}
             tolerance={100}
             styleConfig={{
+              containerProps: {
+                style: {
+                  position: 'relative',
+                }
+              },
               menuProps: {
                 style: {
                   display: 'flex',
@@ -160,7 +201,8 @@ const MegaMenuComponent: React.FC<ReactMegaMenuProps> = ({ className, onSettings
                   right: '0',
                   zIndex: '1000',
                   marginTop: '-10px',
-                }
+                  minHeight: '100px',
+                },
               }
             }}
             onExit={() => {

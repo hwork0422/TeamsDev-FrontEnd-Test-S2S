@@ -44,7 +44,7 @@
 .react-mega-menu-nav {
   display: flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
+  /* justify-content: space-between !important; */
   padding: 0 !important;
   background-color: var(--mega-menu-bg) !important;
   border-bottom: 1px solid var(--mega-menu-border) !important;
@@ -64,12 +64,12 @@
 }
 
 .react-mega-menu-center {
-  flex: 1 !important;
+  /* flex: 1 !important; */
   justify-content: flex-start !important;
 }
 
 .react-mega-menu-right {
-  flex-shrink: 0 !important;
+  /* flex-shrink: 0 !important; */
 }
 
 /* ==========================================================================
@@ -143,16 +143,18 @@
   padding: 24px !important;
   display: flex !important;
   flex-direction: row !important;
-  gap: 32px !important;
+  gap: 24px !important;
+  row-gap: 16px !important;
   background-color: var(--mega-menu-white) !important;
   flex-wrap: wrap !important;
   text-align: left !important;
+  align-content: flex-start !important;
 }
 
 .mega-menu-column {
-  flex: 1 !important;
+  flex: 0 0 calc(50% - 12px) !important;
   min-width: 200px !important;
-  max-width: 50% !important;
+  max-width: calc(50% - 12px) !important;
   display: flex !important;
   flex-direction: column !important;
   text-align: left !important;
@@ -162,8 +164,8 @@
   font-size: 16px !important;
   font-weight: 600 !important;
   color: var(--mega-menu-text) !important;
-  margin-bottom: 16px !important;
-  padding-bottom: 8px !important;
+  margin-bottom: 12px !important;
+  padding-bottom: 6px !important;
   text-align: left !important;
   cursor: pointer !important;
 }
@@ -239,6 +241,46 @@
   width: 16px !important;
   height: 16px !important;
   fill: currentColor !important;
+}
+
+/* ==========================================================================
+   Mega Menu Icons
+   ========================================================================== */
+.mega-menu-icon {
+  width: 16px !important;
+  height: 16px !important;
+  object-fit: contain !important;
+  margin-right: 8px !important;
+  flex-shrink: 0 !important;
+  border-radius: 2px !important;
+}
+
+.mega-menu-sub-item-button .mega-menu-icon {
+  width: 18px !important;
+  height: 18px !important;
+  margin-right: 10px !important;
+}
+
+.mega-menu-section-title .mega-menu-icon {
+  width: 18px !important;
+  height: 18px !important;
+  margin-right: 8px !important;
+}
+
+.mega-menu-link-button .mega-menu-icon {
+  width: 16px !important;
+  height: 16px !important;
+  margin-right: 6px !important;
+}
+
+/* Icon hover states - images don't need color changes */
+.mega-menu-sub-item-button:hover .mega-menu-icon,
+.mega-menu-sub-item-button[data-selected="true"] .mega-menu-icon {
+  opacity: 1 !important;
+}
+
+.mega-menu-link-button:hover .mega-menu-icon {
+  opacity: 0.8 !important;
 }
 
 /* ==========================================================================

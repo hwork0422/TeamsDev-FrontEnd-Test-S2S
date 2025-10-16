@@ -12,7 +12,7 @@ import './Layout.css';
 const Layout: React.FC = () => {
   const dispatch = useAppDispatch();
   const { currentTheme } = useAppSelector((state) => state.theme);
-  const { currentUser, isInitialized } = useAppSelector((state) => state.user);
+  const { isInitialized } = useAppSelector((state) => state.user);
   const [activeTab, setActiveTab] = useState('menu');
 
   useEffect(() => {
