@@ -32,13 +32,12 @@ This is a **scalable React + TypeScript single-page application** designed to be
 
 ## 🛠 Technologies Used
 
-- **React 19+** with TypeScript
+- **React 18** with TypeScript (Compatibility issue with 19+)
 - **Vite** as build tool
 - **Fluent UI Northstar v0.52.0** for UI components
 - **Redux Toolkit** for state management
-- **Microsoft Teams SDK v2** for Teams integration
+- **Microsoft Teams SDK v2** for Teams integration (Not functional yet)
 - **Vitest** + **React Testing Library** for testing
-- **CSS Custom Properties** for theming
 
 ## 📂 Project Structure
 
@@ -56,6 +55,7 @@ src/
 │   └── storageService.ts # Local storage management
 ├── types/
 │   └── index.ts          # TypeScript interfaces
+|   └── react-mega-menu.d.ts # React-mega-menu interface
 ├── hooks/
 │   └── redux.ts          # Typed Redux hooks
 ├── __tests__/
@@ -68,7 +68,7 @@ src/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 20+
 - npm or yarn
 
 ### Installation
@@ -219,4 +219,4 @@ All test cases from the requirements are implemented and passing:
 | Add Item | ✅ | Adding item updates Mega Menu instantly |
 | Persistence | ✅ | Reloading page keeps last menu config |
 | Tests | ✅ | Jest test suite passes |
-| Teams Theme | ✅ | Theme auto-switches on Teams theme change |
+| Teams Theme | ❌ | Theme auto-switches on Teams theme change |
