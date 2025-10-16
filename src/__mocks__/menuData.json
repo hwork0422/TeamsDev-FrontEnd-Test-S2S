@@ -1,89 +1,118 @@
 [
   {
     "id": "1",
-    "label": "MenuItem1",
-    "url": "https://example.com/item1",
+    "label": "Human Resources",
+    "url": "https://hr.company.com",
+    "icon": "https://img.icons8.com/color/48/000000/human-resources.png",
+    "openInTeams": true,
     "children": [
       {
         "id": "1-1",
-        "label": "Sub Menu Item 1",
+        "label": "Employee Services",
+        "url": "https://hr.company.com/employee-services",
+        "icon": "https://img.icons8.com/color/48/000000/employee-card.png",
+        "openInTeams": false,
         "children": [
           {
             "id": "1-1-1",
-            "label": "My Career and Benefits",
+            "label": "Career Development",
+            "url": "https://hr.company.com/career",
+            "icon": "https://img.icons8.com/color/48/000000/career.png",
+            "openInTeams": true,
             "children": [
-              { "id": "1-1-1-1", "label": "HRweb", "url": "https://example.com/hrweb" },
-              { "id": "1-1-1-2", "label": "Benefits", "url": "https://example.com/benefits" },
-              { "id": "1-1-1-3", "label": "Learning Portal", "url": "https://example.com/learning" },
-              { "id": "1-1-1-4", "label": "Internal Jobs", "url": "https://example.com/jobs" },
-              { "id": "1-1-1-5", "label": "Company Store", "url": "https://example.com/store" },
-              { "id": "1-1-1-6", "label": "Give", "url": "https://example.com/give" }
+              { "id": "1-1-1-1", "label": "HR Portal", "url": "https://hr.company.com/portal", "icon": "https://img.icons8.com/color/48/000000/portal.png", "openInTeams": false },
+              { "id": "1-1-1-2", "label": "Benefits Center", "url": "https://hr.company.com/benefits", "icon": "https://img.icons8.com/color/48/000000/benefits.png", "openInTeams": true },
+              { "id": "1-1-1-3", "label": "Learning Hub", "url": "https://hr.company.com/learning", "icon": "https://img.icons8.com/color/48/000000/learning.png", "openInTeams": false },
+              { "id": "1-1-1-4", "label": "Job Board", "url": "https://hr.company.com/jobs", "icon": "https://img.icons8.com/color/48/000000/job.png", "openInTeams": true },
+              { "id": "1-1-1-5", "label": "Company Store", "url": "https://hr.company.com/store", "icon": "https://img.icons8.com/color/48/000000/store.png", "openInTeams": false },
+              { "id": "1-1-1-6", "label": "Volunteer Program", "url": "https://hr.company.com/volunteer", "icon": "https://img.icons8.com/color/48/000000/volunteer.png", "openInTeams": true }
             ]
           },
           {
             "id": "1-1-2",
-            "label": "Travel and Expense",
+            "label": "Travel & Expenses",
+            "url": "https://hr.company.com/travel",
+            "icon": "https://img.icons8.com/color/48/000000/travel.png",
+            "openInTeams": false,
             "children": [
-              { "id": "1-1-2-1", "label": "Travel", "url": "https://example.com/travel" },
-              { "id": "1-1-2-2", "label": "Expenses", "url": "https://example.com/expenses" },
-              { "id": "1-1-2-3", "label": "Payments", "url": "https://example.com/payments" },
-              { "id": "1-1-2-4", "label": "US Immigration Travel", "url": "https://example.com/immigration" }
+              { "id": "1-1-2-1", "label": "Travel Booking", "url": "https://hr.company.com/travel-booking", "icon": "https://img.icons8.com/color/48/000000/airplane.png", "openInTeams": true },
+              { "id": "1-1-2-2", "label": "Expense Reports", "url": "https://hr.company.com/expenses", "icon": "https://img.icons8.com/color/48/000000/expense.png", "openInTeams": false },
+              { "id": "1-1-2-3", "label": "Payment Center", "url": "https://hr.company.com/payments", "icon": "https://img.icons8.com/color/48/000000/payment.png", "openInTeams": true },
+              { "id": "1-1-2-4", "label": "Immigration Support", "url": "https://hr.company.com/immigration", "icon": "https://img.icons8.com/color/48/000000/immigration.png", "openInTeams": false }
             ]
           }
         ]
       },
       {
         "id": "1-2",
-        "label": "Sub Menu Item 2",
+        "label": "IT Support",
+        "url": "https://it.company.com",
+        "icon": "https://img.icons8.com/color/48/000000/computer.png",
+        "openInTeams": true,
         "children": [
           {
             "id": "1-2-1",
-            "label": "IT Services",
+            "label": "Technical Services",
+            "url": "https://it.company.com/services",
+            "icon": "https://img.icons8.com/color/48/000000/technical-support.png",
+            "openInTeams": false,
             "children": [
-              { "id": "1-2-1-1", "label": "Help Desk", "url": "https://example.com/helpdesk" },
-              { "id": "1-2-1-2", "label": "Software Requests", "url": "https://example.com/software" },
-              { "id": "1-2-1-3", "label": "Network Access", "url": "https://example.com/network" },
-              { "id": "1-2-1-4", "label": "Security", "url": "https://example.com/security" },
-              { "id": "1-2-1-5", "label": "VPN Access", "url": "https://example.com/vpn" },
-              { "id": "1-2-1-6", "label": "System Status", "url": "https://example.com/status" }
+              { "id": "1-2-1-1", "label": "Help Desk", "url": "https://it.company.com/helpdesk", "icon": "https://img.icons8.com/color/48/000000/help-desk.png", "openInTeams": true },
+              { "id": "1-2-1-2", "label": "Software Requests", "url": "https://it.company.com/software", "icon": "https://img.icons8.com/color/48/000000/software.png", "openInTeams": false },
+              { "id": "1-2-1-3", "label": "Network Access", "url": "https://it.company.com/network", "icon": "https://img.icons8.com/color/48/000000/network.png", "openInTeams": true },
+              { "id": "1-2-1-4", "label": "Security Center", "url": "https://it.company.com/security", "icon": "https://img.icons8.com/color/48/000000/security.png", "openInTeams": false },
+              { "id": "1-2-1-5", "label": "VPN Access", "url": "https://it.company.com/vpn", "icon": "https://img.icons8.com/color/48/000000/vpn.png", "openInTeams": true },
+              { "id": "1-2-1-6", "label": "System Status", "url": "https://it.company.com/status", "icon": "https://img.icons8.com/color/48/000000/status.png", "openInTeams": false }
             ]
           },
           {
             "id": "1-2-2",
             "label": "Facilities",
+            "url": "https://facilities.company.com",
+            "icon": "https://img.icons8.com/color/48/000000/building.png",
+            "openInTeams": true,
             "children": [
-              { "id": "1-2-2-1", "label": "Room Booking", "url": "https://example.com/rooms" },
-              { "id": "1-2-2-2", "label": "Maintenance", "url": "https://example.com/maintenance" },
-              { "id": "1-2-2-3", "label": "Parking", "url": "https://example.com/parking" },
-              { "id": "1-2-2-4", "label": "Cafeteria", "url": "https://example.com/cafeteria" }
+              { "id": "1-2-2-1", "label": "Room Booking", "url": "https://facilities.company.com/rooms", "icon": "https://img.icons8.com/color/48/000000/meeting-room.png", "openInTeams": false },
+              { "id": "1-2-2-2", "label": "Maintenance", "url": "https://facilities.company.com/maintenance", "icon": "https://img.icons8.com/color/48/000000/maintenance.png", "openInTeams": true },
+              { "id": "1-2-2-3", "label": "Parking", "url": "https://facilities.company.com/parking", "icon": "https://img.icons8.com/color/48/000000/parking.png", "openInTeams": false },
+              { "id": "1-2-2-4", "label": "Cafeteria", "url": "https://facilities.company.com/cafeteria", "icon": "https://img.icons8.com/color/48/000000/cafeteria.png", "openInTeams": true }
             ]
           }
         ]
       },
       {
         "id": "1-3",
-        "label": "Sub Menu Item 3",
+        "label": "Finance & Legal",
+        "url": "https://finance.company.com",
+        "icon": "https://img.icons8.com/color/48/000000/money.png",
+        "openInTeams": false,
         "children": [
           {
             "id": "1-3-1",
-            "label": "Finance",
+            "label": "Financial Services",
+            "url": "https://finance.company.com/services",
+            "icon": "https://img.icons8.com/color/48/000000/finance.png",
+            "openInTeams": true,
             "children": [
-              { "id": "1-3-1-1", "label": "Budget Planning", "url": "https://example.com/budget" },
-              { "id": "1-3-1-2", "label": "Expense Reports", "url": "https://example.com/expense-reports" },
-              { "id": "1-3-1-3", "label": "Invoicing", "url": "https://example.com/invoicing" },
-              { "id": "1-3-1-4", "label": "Payroll", "url": "https://example.com/payroll" },
-              { "id": "1-3-1-5", "label": "Tax Documents", "url": "https://example.com/tax" },
-              { "id": "1-3-1-6", "label": "Financial Reports", "url": "https://example.com/reports" }
+              { "id": "1-3-1-1", "label": "Budget Planning", "url": "https://finance.company.com/budget", "icon": "https://img.icons8.com/color/48/000000/budget.png", "openInTeams": false },
+              { "id": "1-3-1-2", "label": "Expense Reports", "url": "https://finance.company.com/expense-reports", "icon": "https://img.icons8.com/color/48/000000/expense-report.png", "openInTeams": true },
+              { "id": "1-3-1-3", "label": "Invoicing", "url": "https://finance.company.com/invoicing", "icon": "https://img.icons8.com/color/48/000000/invoice.png", "openInTeams": false },
+              { "id": "1-3-1-4", "label": "Payroll", "url": "https://finance.company.com/payroll", "icon": "https://img.icons8.com/color/48/000000/payroll.png", "openInTeams": true },
+              { "id": "1-3-1-5", "label": "Tax Documents", "url": "https://finance.company.com/tax", "icon": "https://img.icons8.com/color/48/000000/tax.png", "openInTeams": false },
+              { "id": "1-3-1-6", "label": "Financial Reports", "url": "https://finance.company.com/reports", "icon": "https://img.icons8.com/color/48/000000/report.png", "openInTeams": true }
             ]
           },
           {
             "id": "1-3-2",
             "label": "Legal & Compliance",
+            "url": "https://legal.company.com",
+            "icon": "https://img.icons8.com/color/48/000000/law.png",
+            "openInTeams": true,
             "children": [
-              { "id": "1-3-2-1", "label": "Policies", "url": "https://example.com/policies" },
-              { "id": "1-3-2-2", "label": "Compliance Training", "url": "https://example.com/compliance" },
-              { "id": "1-3-2-3", "label": "Legal Documents", "url": "https://example.com/legal" },
-              { "id": "1-3-2-4", "label": "Risk Management", "url": "https://example.com/risk" }
+              { "id": "1-3-2-1", "label": "Company Policies", "url": "https://legal.company.com/policies", "icon": "https://img.icons8.com/color/48/000000/policy.png", "openInTeams": false },
+              { "id": "1-3-2-2", "label": "Compliance Training", "url": "https://legal.company.com/compliance", "icon": "https://img.icons8.com/color/48/000000/compliance.png", "openInTeams": true },
+              { "id": "1-3-2-3", "label": "Legal Documents", "url": "https://legal.company.com/legal", "icon": "https://img.icons8.com/color/48/000000/legal-document.png", "openInTeams": false },
+              { "id": "1-3-2-4", "label": "Risk Management", "url": "https://legal.company.com/risk", "icon": "https://img.icons8.com/color/48/000000/risk.png", "openInTeams": true }
             ]
           }
         ]
@@ -92,54 +121,78 @@
   },
   {
     "id": "2",
-    "label": "MenuItem2",
-    "url": "https://example.com/item2",
+    "label": "Business Operations",
+    "url": "https://operations.company.com",
+    "icon": "https://img.icons8.com/color/48/000000/business.png",
+    "openInTeams": true,
     "children": [
       {
         "id": "2-1",
-        "label": "IT Services",
+        "label": "Project Management",
+        "url": "https://operations.company.com/projects",
+        "icon": "https://img.icons8.com/color/48/000000/project-management.png",
+        "openInTeams": false,
         "children": [
-          { "id": "2-1-1", "label": "Help Desk", "url": "https://example.com/helpdesk" },
-          { "id": "2-1-2", "label": "Software Requests", "url": "https://example.com/software" },
-          { "id": "2-1-3", "label": "Network Access", "url": "https://example.com/network" },
-          { "id": "2-1-4", "label": "Security", "url": "https://example.com/security" }
+          { "id": "2-1-1", "label": "Project Dashboard", "url": "https://operations.company.com/dashboard", "icon": "https://img.icons8.com/color/48/000000/dashboard.png", "openInTeams": true },
+          { "id": "2-1-2", "label": "Resource Planning", "url": "https://operations.company.com/resources", "icon": "https://img.icons8.com/color/48/000000/resources.png", "openInTeams": false },
+          { "id": "2-1-3", "label": "Timeline View", "url": "https://operations.company.com/timeline", "icon": "https://img.icons8.com/color/48/000000/timeline.png", "openInTeams": true },
+          { "id": "2-1-4", "label": "Team Collaboration", "url": "https://operations.company.com/collaboration", "icon": "https://img.icons8.com/color/48/000000/collaboration.png", "openInTeams": false }
         ]
       },
       {
         "id": "2-2",
-        "label": "Facilities",
+        "label": "Customer Relations",
+        "url": "https://operations.company.com/customers",
+        "icon": "https://img.icons8.com/color/48/000000/customer.png",
+        "openInTeams": true,
         "children": [
-          { "id": "2-2-1", "label": "Room Booking", "url": "https://example.com/rooms" },
-          { "id": "2-2-2", "label": "Maintenance", "url": "https://example.com/maintenance" },
-          { "id": "2-2-3", "label": "Parking", "url": "https://example.com/parking" }
+          { "id": "2-2-1", "label": "CRM System", "url": "https://operations.company.com/crm", "icon": "https://img.icons8.com/color/48/000000/crm.png", "openInTeams": false },
+          { "id": "2-2-2", "label": "Support Tickets", "url": "https://operations.company.com/support", "icon": "https://img.icons8.com/color/48/000000/support.png", "openInTeams": true },
+          { "id": "2-2-3", "label": "Feedback Portal", "url": "https://operations.company.com/feedback", "icon": "https://img.icons8.com/color/48/000000/feedback.png", "openInTeams": false }
         ]
       }
     ]
   },
   {
     "id": "3",
-    "label": "MenuItem3",
-    "url": "https://example.com/item3",
+    "label": "Marketing & Sales",
+    "url": "https://marketing.company.com",
+    "icon": "https://img.icons8.com/color/48/000000/marketing.png",
+    "openInTeams": false,
     "children": [
       {
         "id": "3-1",
-        "label": "Finance",
+        "label": "Digital Marketing",
+        "url": "https://marketing.company.com/digital",
+        "icon": "https://img.icons8.com/color/48/000000/digital-marketing.png",
+        "openInTeams": true,
         "children": [
-          { "id": "3-1-1", "label": "Budget Planning", "url": "https://example.com/budget" },
-          { "id": "3-1-2", "label": "Expense Reports", "url": "https://example.com/expense-reports" },
-          { "id": "3-1-3", "label": "Invoicing", "url": "https://example.com/invoicing" }
+          { "id": "3-1-1", "label": "Campaign Manager", "url": "https://marketing.company.com/campaigns", "icon": "https://img.icons8.com/color/48/000000/campaign.png", "openInTeams": false },
+          { "id": "3-1-2", "label": "Analytics Dashboard", "url": "https://marketing.company.com/analytics", "icon": "https://img.icons8.com/color/48/000000/analytics.png", "openInTeams": true },
+          { "id": "3-1-3", "label": "Content Library", "url": "https://marketing.company.com/content", "icon": "https://img.icons8.com/color/48/000000/content.png", "openInTeams": false }
         ]
       }
     ]
   },
   {
     "id": "4",
-    "label": "MenuItem4",
-    "url": "https://example.com/item4"
+    "label": "Research & Development",
+    "url": "https://rd.company.com",
+    "icon": "https://img.icons8.com/color/48/000000/research.png",
+    "openInTeams": true
   },
   {
     "id": "5",
-    "label": "MenuItem5",
-    "url": "https://example.com/item5"
+    "label": "Company News",
+    "url": "https://news.company.com",
+    "icon": "https://img.icons8.com/color/48/000000/news.png",
+    "openInTeams": false
+  },
+  {
+    "id": "6",
+    "label": "External Links",
+    "url": "https://external.company.com",
+    "icon": "https://img.icons8.com/color/48/000000/external-link.png",
+    "openInTeams": true
   }
 ]
