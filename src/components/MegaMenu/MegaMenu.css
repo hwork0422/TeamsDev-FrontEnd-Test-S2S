@@ -1,470 +1,313 @@
-.mega-menu-container {
-  position: relative;
-  width: 100%;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e1dfdd;
+/* ==========================================================================
+   React Mega Menu
+   ========================================================================== */
+
+/* ==========================================================================
+   CSS Variables for consistent theming
+   ========================================================================== */
+:root {
+  --mega-menu-bg: #f5f5f5;
+  --mega-menu-text: #404040;
+  --mega-menu-border: #e1dfdd;
+  --mega-menu-hover: #0078d4;
+  --mega-menu-white: #ffffff;
+  --mega-menu-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.mega-menu-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e1dfdd;
-  min-height: 48px;
+[data-theme="dark"] {
+  --mega-menu-bg: #1a1a1a;
+  --mega-menu-text: #ffffff;
+  --mega-menu-border: #484644;
+  --mega-menu-hover: #60cdff;
+  --mega-menu-white: #2d2d2d;
+  --mega-menu-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.mega-menu-left {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
+[data-theme="contrast"] {
+  --mega-menu-bg: #000000;
+  --mega-menu-text: #ffffff;
+  --mega-menu-border: #ffffff;
+  --mega-menu-hover: #ffff00;
+  --mega-menu-white: #000000;
+  --mega-menu-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
 }
 
-.mega-menu-center {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  justify-content: flex-start;
+/* ==========================================================================
+   Base Container & Navigation
+   ========================================================================== */
+.react-mega-menu-container {
+  width: 100% !important;
+  background-color: var(--mega-menu-bg) !important;
+  border-bottom: 1px solid var(--mega-menu-border) !important;
 }
 
-.mega-menu-items {
-  display: flex;
-  align-items: center;
-  gap: 0;
+.react-mega-menu-nav {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 !important;
+  background-color: var(--mega-menu-bg) !important;
+  border-bottom: 1px solid var(--mega-menu-border) !important;
+  min-height: 48px !important;
 }
 
-.mega-menu-right {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
+.react-mega-menu-left,
+.react-mega-menu-center,
+.react-mega-menu-right {
+  display: flex !important;
+  align-items: center !important;
 }
 
-.mega-menu-nav-item {
-  position: relative;
-  margin-right: 32px;
-  z-index: 1001;
+.react-mega-menu-left {
+  flex-shrink: 0 !important;
+  margin: 0 16px !important;
 }
 
-.mega-menu-nav-item:last-child {
-  margin-right: 0;
+.react-mega-menu-center {
+  flex: 1 !important;
+  justify-content: flex-start !important;
 }
 
-.mega-menu-nav-button {
-  background: transparent !important;
-  border: none !important;
-  color: #323130 !important;
-  padding: 12px 0 !important;
-  font-size: 14px !important;
-  font-weight: 400 !important;
-  text-decoration: none !important;
-  transition: color 0.2s ease !important;
-  position: relative !important;
+.react-mega-menu-right {
+  flex-shrink: 0 !important;
 }
 
-.mega-menu-nav-button:hover {
-  color: #0078d4 !important;
-  background: transparent !important;
+/* ==========================================================================
+   Main Menu Items
+   ========================================================================== */
+.react-mega-menu .mega-menu-item {
+  cursor: pointer !important;
+  color: var(--mega-menu-text) !important;
 }
 
-.mega-menu-nav-item.active .mega-menu-nav-button {
-  color: #0078d4 !important;
+.react-mega-menu .mega-menu-item:hover {
+  color: var(--mega-menu-hover) !important;
+}
+
+/* ==========================================================================
+   Mega Menu Content Layout
+   ========================================================================== */
+.mega-menu-content {
+  display: flex !important;
+  flex-direction: row !important;
+  background-color: var(--mega-menu-white) !important;
+  border: 1px solid var(--mega-menu-border) !important;
+  border-radius: 4px !important;
+  box-shadow: var(--mega-menu-shadow) !important;
+  min-width: 800px !important;
+  min-height: 400px !important;
+}
+
+/* ==========================================================================
+   Left Panel (Level 2)
+   ========================================================================== */
+.mega-menu-left-panel {
+  width: 200px !important;
+  background-color: var(--mega-menu-bg) !important;
+  border-right: 1px solid var(--mega-menu-border) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  text-align: left !important;
+}
+
+.mega-menu-sub-item {
+  width: 100% !important;
   font-weight: 600 !important;
 }
 
-.mega-menu-nav-item.active .mega-menu-nav-button::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: #0078d4;
+.mega-menu-sub-item-button {
+  width: 100% !important;
+  text-align: left !important;
+  border-radius: 0 !important;
+  justify-content: flex-start !important;
+  padding-left: 10px !important;
+  cursor: pointer !important;
 }
 
-.mega-menu-panel {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e1dfdd;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  padding: 24px;
-  animation: slideDown 0.2s ease-out;
-  margin-top: -1px; /* Remove gap between nav and panel */
+/* Left panel button states */
+.mega-menu-sub-item-button:hover,
+.mega-menu-sub-item-button:hover *,
+.mega-menu-sub-item-button[data-selected="true"],
+.mega-menu-sub-item-button[data-selected="true"] *,
+.mega-menu-sub-item .ui-button:hover,
+.mega-menu-sub-item .ui-button[data-selected="true"] {
+  background-color: var(--mega-menu-white) !important;
+  color: var(--mega-menu-text) !important;
 }
 
-.mega-menu-content {
-  display: flex;
-  gap: 48px;
-  max-width: 1200px;
-  margin: 0 auto;
+/* ==========================================================================
+   Right Panel (Level 3 & 4)
+   ========================================================================== */
+.mega-menu-right-panel {
+  flex: 1 !important;
+  padding: 24px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 32px !important;
+  background-color: var(--mega-menu-white) !important;
+  flex-wrap: wrap !important;
+  text-align: left !important;
 }
 
 .mega-menu-column {
-  flex: 1;
-  min-width: 200px;
+  flex: 1 !important;
+  min-width: 200px !important;
+  max-width: 50% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  text-align: left !important;
 }
 
 .mega-menu-section-title {
-  color: #323130;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  margin-top: 0;
-  display: block;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: var(--mega-menu-text) !important;
+  margin-bottom: 16px !important;
+  padding-bottom: 8px !important;
+  text-align: left !important;
+  cursor: pointer !important;
 }
 
 .mega-menu-subsection {
-  margin-bottom: 16px;
+  margin-bottom: 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .mega-menu-subsection-title {
-  color: #323130;
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 8px;
-  margin-top: 0;
-  display: block;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--mega-menu-text) !important;
+  margin-bottom: 8px !important;
+  text-align: left !important;
 }
 
 .mega-menu-link {
-  margin-bottom: 6px;
+  margin-bottom: 4px !important;
+  display: block !important;
+  width: 100% !important;
 }
 
 .mega-menu-link-button {
-  background: transparent;
-  border: none;
-  color: #323130;
-  padding: 6px 0;
-  font-size: 14px;
-  font-weight: 400;
-  text-align: left;
-  width: 100%;
-  transition: color 0.2s ease;
-  cursor: pointer;
-  font-family: inherit;
+  background: transparent !important;
+  border: none !important;
+  padding: 6px 0 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+  width: 100% !important;
+  transition: color 0.2s ease !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+  min-width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  justify-content: flex-start !important;
+  color: var(--mega-menu-text) !important;
 }
 
 .mega-menu-link-button:hover {
-  color: #0078d4;
-  background: transparent;
+  color: var(--mega-menu-hover) !important;
+  background: transparent !important;
+  cursor: pointer !important;
 }
 
-/* Hamburger Menu */
-.hamburger-container {
-  position: relative;
-  display: inline-block;
+.mega-menu-link-button:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-.hamburger-menu {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
+/* ==========================================================================
+   Navigation Buttons (Hamburger & Settings)
+   ========================================================================== */
+.react-mega-menu-left-button,
+.react-mega-menu-right-button {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 16px !important;
+  min-width: auto !important;
+  height: auto !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
-.hamburger-menu:hover {
-  background-color: #f3f2f1;
+/* Icon styling */
+.react-mega-menu-nav svg,
+.react-mega-menu-nav button svg {
+  display: block !important;
+  width: 16px !important;
+  height: 16px !important;
+  fill: currentColor !important;
 }
 
-.hamburger-menu.active {
-  background-color: #0078d4;
+/* ==========================================================================
+   Theme-specific overrides
+   ========================================================================== */
+
+/* Dark theme specific overrides */
+[data-theme="dark"] .react-mega-menu-nav button:hover {
+  background-color: var(--mega-menu-border) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
 }
 
-.hamburger-menu.active .hamburger-line {
-  background-color: #ffffff;
+[data-theme="dark"] .react-mega-menu-nav button:focus {
+  box-shadow: 0 0 0 2px var(--mega-menu-hover) !important;
 }
 
-.hamburger-line {
-  width: 18px;
-  height: 2px;
-  background-color: #323130;
-  border-radius: 1px;
-  transition: all 0.2s ease;
-}
-
-/* Hamburger Dropdown */
-.hamburger-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #ffffff;
-  border: 1px solid #e1dfdd;
-  border-radius: 4px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1002;
-  min-width: 200px;
-  margin-top: 2px;
-  animation: slideDown 0.15s ease-out;
-}
-
-.hamburger-item {
-  display: block;
-  width: 100%;
-  padding: 12px 16px;
-  border: none;
-  background: transparent;
-  text-align: left;
-  font-size: 14px;
-  color: #323130;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  border-bottom: 1px solid #f3f2f1;
-}
-
-.hamburger-item:last-child {
-  border-bottom: none;
-}
-
-.hamburger-item:hover {
-  background-color: #f3f2f1;
-  color: #0078d4;
-}
-
-/* Three Dots Menu */
-.settings-menu {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-}
-
-.settings-menu:hover {
-  background-color: #f3f2f1;
-}
-
-.three-dots {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  align-items: center;
-}
-
-.dot {
-  width: 4px;
-  height: 4px;
-  background-color: #323130;
-  border-radius: 50%;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Dark theme adjustments */
-[data-theme="dark"] .mega-menu-container {
-  background-color: #1a1a1a;
-  border-bottom-color: #484644;
-}
-
-[data-theme="dark"] .mega-menu-nav {
-  background-color: #1a1a1a;
-  border-bottom-color: #484644;
-}
-
-[data-theme="dark"] .mega-menu-nav-button {
-  color: #ffffff !important;
-}
-
-[data-theme="dark"] .mega-menu-nav-button:hover {
-  color: #60cdff !important;
-}
-
-[data-theme="dark"] .mega-menu-nav-item.active .mega-menu-nav-button {
-  color: #60cdff !important;
-}
-
-[data-theme="dark"] .mega-menu-nav-item.active .mega-menu-nav-button::after {
-  background-color: #60cdff;
-}
-
-[data-theme="dark"] .mega-menu-panel {
-  background-color: #1a1a1a;
-  border-bottom-color: #484644;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="dark"] .mega-menu-section-title {
-  color: #ffffff;
-}
-
-[data-theme="dark"] .mega-menu-subsection-title {
-  color: #ffffff;
-}
-
-[data-theme="dark"] .mega-menu-link-button {
-  color: #ffffff;
-}
-
-[data-theme="dark"] .mega-menu-link-button:hover {
-  color: #60cdff;
-}
-
-[data-theme="dark"] .hamburger-menu:hover {
-  background-color: #2d2d2d;
-}
-
-[data-theme="dark"] .hamburger-menu.active {
-  background-color: #60cdff;
-}
-
-[data-theme="dark"] .hamburger-line {
-  background-color: #ffffff;
-}
-
-[data-theme="dark"] .hamburger-dropdown {
-  background-color: #1a1a1a;
-  border-color: #484644;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="dark"] .hamburger-item {
-  color: #ffffff;
-  border-bottom-color: #2d2d2d;
-}
-
-[data-theme="dark"] .hamburger-item:hover {
-  background-color: #2d2d2d;
-  color: #60cdff;
-}
-
-[data-theme="dark"] .settings-menu:hover {
-  background-color: #2d2d2d;
-}
-
-[data-theme="dark"] .dot {
-  background-color: #ffffff;
-}
-
-/* Contrast theme adjustments */
-[data-theme="contrast"] .mega-menu-container {
-  background-color: #000000;
-  border-bottom: 2px solid #ffffff;
-}
-
-[data-theme="contrast"] .mega-menu-nav {
-  background-color: #000000;
-  border-bottom: 2px solid #ffffff;
-}
-
-[data-theme="contrast"] .mega-menu-nav-button {
-  color: #ffffff !important;
+/* Contrast theme specific overrides */
+[data-theme="contrast"] .react-mega-menu .mega-menu-item,
+[data-theme="contrast"] .react-mega-menu li > div {
   border: 1px solid transparent !important;
 }
 
-[data-theme="contrast"] .mega-menu-nav-button:hover {
-  color: #ffff00 !important;
-  border-color: #ffffff !important;
+[data-theme="contrast"] .react-mega-menu .mega-menu-item:hover,
+[data-theme="contrast"] .react-mega-menu li > div:hover {
+  border-color: var(--mega-menu-border) !important;
 }
 
-[data-theme="contrast"] .mega-menu-nav-item.active .mega-menu-nav-button {
-  color: #ffff00 !important;
-  border-color: #ffffff !important;
+[data-theme="contrast"] .react-mega-menu .mega-menu-item.active,
+[data-theme="contrast"] .react-mega-menu li.active > div {
+  border-color: var(--mega-menu-border) !important;
 }
 
-[data-theme="contrast"] .mega-menu-panel {
-  background-color: #000000;
-  border-bottom: 2px solid #ffffff;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+[data-theme="contrast"] .react-mega-menu-nav button:hover {
+  background-color: var(--mega-menu-border) !important;
+  color: var(--mega-menu-bg) !important;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3) !important;
 }
 
-[data-theme="contrast"] .mega-menu-section-title {
-  color: #ffffff;
+[data-theme="contrast"] .react-mega-menu-nav button:hover svg {
+  fill: var(--mega-menu-bg) !important;
+  color: var(--mega-menu-bg) !important;
 }
 
-[data-theme="contrast"] .mega-menu-subsection-title {
-  color: #ffffff;
+[data-theme="contrast"] .react-mega-menu-nav button:focus {
+  box-shadow: 0 0 0 2px var(--mega-menu-hover) !important;
 }
 
 [data-theme="contrast"] .mega-menu-link-button {
-  color: #ffffff;
-  border: 1px solid transparent;
+  border: 1px solid transparent !important;
 }
 
 [data-theme="contrast"] .mega-menu-link-button:hover {
-  color: #ffff00;
-  border-color: #ffffff;
+  border-color: var(--mega-menu-border) !important;
 }
 
-[data-theme="contrast"] .hamburger-menu:hover {
-  background-color: #000000;
-  border: 1px solid #ffffff;
-}
-
-[data-theme="contrast"] .hamburger-menu.active {
-  background-color: #ffff00;
-  border: 1px solid #ffffff;
-}
-
-[data-theme="contrast"] .hamburger-line {
-  background-color: #ffffff;
-}
-
-[data-theme="contrast"] .hamburger-dropdown {
-  background-color: #000000;
-  border: 2px solid #ffffff;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
-}
-
-[data-theme="contrast"] .hamburger-item {
-  color: #ffffff;
-  border-bottom: 2px solid #ffffff;
-}
-
-[data-theme="contrast"] .hamburger-item:hover {
-  background-color: #000000;
-  color: #ffff00;
-  border-color: #ffff00;
-}
-
-[data-theme="contrast"] .settings-menu:hover {
-  background-color: #000000;
-  border: 1px solid #ffffff;
-}
-
-[data-theme="contrast"] .dot {
-  background-color: #ffffff;
-}
-
-/* Responsive design */
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
 @media (max-width: 768px) {
-  .mega-menu-nav {
-    padding: 0 16px;
-    flex-wrap: wrap;
-  }
-  
-  .mega-menu-nav-item {
-    margin-right: 16px;
-    margin-bottom: 8px;
-  }
-  
-  .mega-menu-panel {
-    padding: 16px;
+  .react-mega-menu .mega-menu-item {
+    padding: 8px 12px;
+    font-size: 13px;
   }
   
   .mega-menu-content {
-    flex-direction: column;
-    gap: 24px;
+    min-width: 600px !important;
   }
   
-  .mega-menu-column {
-    min-width: auto;
+  .mega-menu-right-panel {
+    padding: 16px !important;
   }
 }

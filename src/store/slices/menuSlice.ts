@@ -17,24 +17,86 @@ const initialState: MenuState = {
       children: [
         {
           id: '1-1',
-          label: 'My Career and Benefits',
+          label: 'Sub Menu Item 1',
           children: [
-            { id: '1-1-1', label: 'HRweb', url: 'https://example.com/hrweb' },
-            { id: '1-1-2', label: 'Benefits', url: 'https://example.com/benefits' },
-            { id: '1-1-3', label: 'Learning Portal', url: 'https://example.com/learning' },
-            { id: '1-1-4', label: 'Internal Jobs', url: 'https://example.com/jobs' },
-            { id: '1-1-5', label: 'Company Store', url: 'https://example.com/store' },
-            { id: '1-1-6', label: 'Give', url: 'https://example.com/give' },
+            {
+              id: '1-1-1',
+              label: 'My Career and Benefits',
+              children: [
+                { id: '1-1-1-1', label: 'HRweb', url: 'https://example.com/hrweb' },
+                { id: '1-1-1-2', label: 'Benefits', url: 'https://example.com/benefits' },
+                { id: '1-1-1-3', label: 'Learning Portal', url: 'https://example.com/learning' },
+                { id: '1-1-1-4', label: 'Internal Jobs', url: 'https://example.com/jobs' },
+                { id: '1-1-1-5', label: 'Company Store', url: 'https://example.com/store' },
+                { id: '1-1-1-6', label: 'Give', url: 'https://example.com/give' },
+              ],
+            },
+            {
+              id: '1-1-2',
+              label: 'Travel and Expense',
+              children: [
+                { id: '1-1-2-1', label: 'Travel', url: 'https://example.com/travel' },
+                { id: '1-1-2-2', label: 'Expenses', url: 'https://example.com/expenses' },
+                { id: '1-1-2-3', label: 'Payments', url: 'https://example.com/payments' },
+                { id: '1-1-2-4', label: 'US Immigration Travel', url: 'https://example.com/immigration' },
+              ],
+            },
           ],
         },
         {
           id: '1-2',
-          label: 'Travel and Expense',
+          label: 'Sub Menu Item 2',
           children: [
-            { id: '1-2-1', label: 'Travel', url: 'https://example.com/travel' },
-            { id: '1-2-2', label: 'Expenses', url: 'https://example.com/expenses' },
-            { id: '1-2-3', label: 'Payments', url: 'https://example.com/payments' },
-            { id: '1-2-4', label: 'US Immigration Travel', url: 'https://example.com/immigration' },
+            {
+              id: '1-2-1',
+              label: 'IT Services',
+              children: [
+                { id: '1-2-1-1', label: 'Help Desk', url: 'https://example.com/helpdesk' },
+                { id: '1-2-1-2', label: 'Software Requests', url: 'https://example.com/software' },
+                { id: '1-2-1-3', label: 'Network Access', url: 'https://example.com/network' },
+                { id: '1-2-1-4', label: 'Security', url: 'https://example.com/security' },
+                { id: '1-2-1-5', label: 'VPN Access', url: 'https://example.com/vpn' },
+                { id: '1-2-1-6', label: 'System Status', url: 'https://example.com/status' },
+              ],
+            },
+            {
+              id: '1-2-2',
+              label: 'Facilities',
+              children: [
+                { id: '1-2-2-1', label: 'Room Booking', url: 'https://example.com/rooms' },
+                { id: '1-2-2-2', label: 'Maintenance', url: 'https://example.com/maintenance' },
+                { id: '1-2-2-3', label: 'Parking', url: 'https://example.com/parking' },
+                { id: '1-2-2-4', label: 'Cafeteria', url: 'https://example.com/cafeteria' },
+              ],
+            },
+          ],
+        },
+        {
+          id: '1-3',
+          label: 'Sub Menu Item 3',
+          children: [
+            {
+              id: '1-3-1',
+              label: 'Finance',
+              children: [
+                { id: '1-3-1-1', label: 'Budget Planning', url: 'https://example.com/budget' },
+                { id: '1-3-1-2', label: 'Expense Reports', url: 'https://example.com/expense-reports' },
+                { id: '1-3-1-3', label: 'Invoicing', url: 'https://example.com/invoicing' },
+                { id: '1-3-1-4', label: 'Payroll', url: 'https://example.com/payroll' },
+                { id: '1-3-1-5', label: 'Tax Documents', url: 'https://example.com/tax' },
+                { id: '1-3-1-6', label: 'Financial Reports', url: 'https://example.com/reports' },
+              ],
+            },
+            {
+              id: '1-3-2',
+              label: 'Legal & Compliance',
+              children: [
+                { id: '1-3-2-1', label: 'Policies', url: 'https://example.com/policies' },
+                { id: '1-3-2-2', label: 'Compliance Training', url: 'https://example.com/compliance' },
+                { id: '1-3-2-3', label: 'Legal Documents', url: 'https://example.com/legal' },
+                { id: '1-3-2-4', label: 'Risk Management', url: 'https://example.com/risk' },
+              ],
+            },
           ],
         },
       ],

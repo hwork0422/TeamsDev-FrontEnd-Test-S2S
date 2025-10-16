@@ -5,7 +5,7 @@ import { setUser, setInitialized } from '../../store/slices/userSlice';
 import { setMenuItems } from '../../store/slices/menuSlice';
 import { TeamsService } from '../../services/teamsService';
 import { StorageService } from '../../services/storageService';
-import MegaMenu from '../MegaMenu/MegaMenu';
+import MegaMenuComponent from '../MegaMenu/MegaMenu';
 import Settings from '../Settings/Settings';
 import './Layout.css';
 
@@ -72,7 +72,7 @@ const Layout: React.FC = () => {
 
   return (
     <div className="layout" data-theme={currentTheme}>
-      <MegaMenu onSettingsClick={handleSettingsClick} onHomeClick={handleHomeClick} />
+      <MegaMenuComponent onSettingsClick={handleSettingsClick} onHomeClick={handleHomeClick} />
       <div className="layout-content">
         {activeTab === 'menu' && <div className="welcome-content">
           <h2>Welcome to Teams Intranet Navigation</h2>

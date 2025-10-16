@@ -1,38 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Menu } from '@fluentui/react-northstar';
+import React from 'react';
+import { ReactMegaMenu } from 'react-mega-menu';
+import { Button } from '@fluentui/react-northstar';
+import { MenuIcon, MoreIcon } from '@fluentui/react-icons-northstar';
 import { useAppSelector } from '../../hooks/redux';
 import type { MenuItem } from '../../types';
 import { TeamsService } from '../../services/teamsService';
 import './MegaMenu.css';
 
-interface MegaMenuProps {
+interface ReactMegaMenuProps {
   className?: string;
   onSettingsClick?: () => void;
   onHomeClick?: () => void;
 }
 
-const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick, onHomeClick }) => {
+const MegaMenuComponent: React.FC<ReactMegaMenuProps> = ({ className, onSettingsClick, onHomeClick }) => {
   const { items } = useAppSelector((state) => state.menu);
-  const { currentTheme } = useAppSelector((state) => state.theme);
-  const [activeItem, setActiveItem] = useState<string | null>(null);
-  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
-  const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
-  const [hamburgerTimeout, setHamburgerTimeout] = useState<NodeJS.Timeout | null>(null);
-
-  const handleMouseEnter = (itemId: string) => {
-    if (hoverTimeout) {
-      clearTimeout(hoverTimeout);
-      setHoverTimeout(null);
-    }
-    setActiveItem(itemId);
-  };
-
-  const handleMouseLeave = () => {
-    const timeout = setTimeout(() => {
-      setActiveItem(null);
-    }, 150); // Small delay to prevent flickering
-    setHoverTimeout(timeout);
-  };
+  const [selectedSubItem, setSelectedSubItem] = React.useState<string | null>(null);
 
   const handleItemClick = async (item: MenuItem) => {
     if (item.url) {
@@ -40,169 +23,164 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ className, onSettingsClick, onHomeC
     }
   };
 
-  const handleHamburgerMouseEnter = () => {
-    if (hamburgerTimeout) {
-      clearTimeout(hamburgerTimeout);
-      setHamburgerTimeout(null);
-    }
-    setIsHamburgerOpen(true);
-  };
-
-  const handleHamburgerMouseLeave = () => {
-    const timeout = setTimeout(() => {
-      setIsHamburgerOpen(false);
-    }, 150); // Small delay to prevent flickering
-    setHamburgerTimeout(timeout);
-  };
-
-  const handleHamburgerMenuClick = (action: string) => {
-    setIsHamburgerOpen(false);
-    
-    switch (action) {
-      case 'home':
-        // Navigate to home/main page
-        onHomeClick?.();
-        break;
-      case 'settings':
-        onSettingsClick?.();
-        break;
-      case 'theme':
-        // Cycle through themes
-        const themes = ['light', 'dark', 'contrast'];
-        const currentIndex = themes.indexOf(currentTheme);
-        const nextTheme = themes[(currentIndex + 1) % themes.length];
-        document.documentElement.setAttribute('data-theme', nextTheme);
-        break;
-      default:
-        break;
+  const handleSubItemClick = async (item: MenuItem) => {
+    if (item.url) {
+      await TeamsService.openLink(item.url, item.openInTeams);
     }
   };
 
-  // Cleanup timeouts on unmount
-  useEffect(() => {
-    return () => {
-      if (hoverTimeout) {
-        clearTimeout(hoverTimeout);
-      }
-      if (hamburgerTimeout) {
-        clearTimeout(hamburgerTimeout);
-      }
-    };
-  }, [hoverTimeout, hamburgerTimeout]);
+  const handleSectionClick = async (item: MenuItem) => {
+    if (item.url) {
+      await TeamsService.openLink(item.url, item.openInTeams);
+    }
+  };
 
+  const handleSubItemHover = (subItemId: string) => {
+    setSelectedSubItem(subItemId);
+  };
 
-  const renderMegaMenuContent = (item: MenuItem) => {
-    if (!item.children || item.children.length === 0) return null;
+  // Set first sub-item as selected when menu opens
+  React.useEffect(() => {
+    if (items.length > 0 && items[0].children && items[0].children.length > 0) {
+      setSelectedSubItem(items[0].children[0].id);
+    }
+  }, [items]);
 
-    return (
-      <div className="mega-menu-content">
-        {item.children.map((child, index) => (
-          <div key={child.id} className="mega-menu-column">
-            <div className="mega-menu-section-title">
-              {child.label}
-            </div>
-            {child.children && child.children.map((subItem) => (
-              <div key={subItem.id} className="mega-menu-subsection">
-                <div className="mega-menu-subsection-title">
-                  {subItem.label}
+  // Transform our menu items to react-mega-menu format with 4-level structure
+  const transformMenuItems = (items: MenuItem[]) => {
+    return items.map((item) => {
+      const menuItem = {
+        label: item.label,
+        key: item.id,
+        items: item.children && item.children.length > 0 ? (
+          <div className="mega-menu-content">
+            {/* Level 2: Left vertical sub-menu panel */}
+            <div className="mega-menu-left-panel">
+              {item.children.map((child) => {
+                return (
+                <div 
+                  key={child.id} 
+                  className="mega-menu-sub-item"
+                  onMouseEnter={() => handleSubItemHover(child.id)}
+                >
+                  <Button
+                    className={`mega-menu-sub-item-button`}
+                    text
+                    data-selected={selectedSubItem === child.id ? 'true' : 'false'}
+                    design={{
+                      paddingLeft: '16px !important',
+                    }}
+                    onClick={() => handleSubItemClick(child)}
+                    styles={{
+                      border: 'none !important',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {child.label}
+                  </Button>
                 </div>
-                {subItem.children && subItem.children.map((subSubItem) => (
-                  <div key={subSubItem.id} className="mega-menu-link">
-                    <Button
-                      className="mega-menu-link-button"
-                      onClick={() => handleItemClick(subSubItem)}
-                      content={subSubItem.label}
-                      text
-                    />
+              );
+              })}
+            </div>
+            
+            {/* Level 3 & 4: Right content panel with columns - show content for selected sub-item */}
+            <div className="mega-menu-right-panel">
+              {(() => {
+                const selectedChild = item.children.find(child => child.id === selectedSubItem) || item.children[0];
+                return selectedChild.children && selectedChild.children.map((subItem) => (
+                  <div key={subItem.id} className="mega-menu-column">
+                    <div className="mega-menu-section-title" onClick={() => handleSectionClick(subItem)}>
+                      {subItem.label}
+                    </div>
+                    {subItem.children && subItem.children.map((subSubItem) => (
+                      <div key={subSubItem.id} className="mega-menu-link">
+                        <Button
+                          className="mega-menu-link-button"
+                          onClick={() => handleItemClick(subSubItem)}
+                          text
+                        >
+                          {subSubItem.label}
+                        </Button>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            ))}
+                ));
+              })()}
+            </div>
           </div>
-        ))}
-      </div>
-    );
+        ) : undefined,
+      };
+      return menuItem;
+    });
   };
+
+  const menuData = transformMenuItems(items);
 
   return (
-    <div 
-      className={`mega-menu-container ${className || ''}`}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div className="mega-menu-nav">
-        <div className="mega-menu-left">
-          <div 
-            className="hamburger-container"
-            onMouseEnter={handleHamburgerMouseEnter}
-            onMouseLeave={handleHamburgerMouseLeave}
-          >
-            <Button 
-              className={`hamburger-menu ${isHamburgerOpen ? 'active' : ''}`} 
-              title="Menu"
-              icon="menu"
-            />
-            
-            {isHamburgerOpen && (
-              <div className="hamburger-dropdown">
-                <Button 
-                  onClick={() => handleHamburgerMenuClick('home')} 
-                  className="hamburger-item"
-                  content="🏠 Home"
-                  text
-                />
-                <Button 
-                  onClick={() => handleHamburgerMenuClick('settings')} 
-                  className="hamburger-item"
-                  content="⚙️ Settings"
-                  text
-                />
-                <Button 
-                  onClick={() => handleHamburgerMenuClick('theme')} 
-                  className="hamburger-item"
-                  content={`🌙 Theme (${currentTheme})`}
-                  text
-                />
-              </div>
-            )}
-          </div>
-        </div>
-        
-        <div className="mega-menu-center">
-          <Menu
-            items={items.map((item) => ({
-              key: item.id,
-              content: item.label,
-              onMouseEnter: () => handleMouseEnter(item.id),
-              onClick: () => handleItemClick(item),
-              className: activeItem === item.id ? 'active' : '',
-            }))}
-            className="mega-menu-items"
-            underlined
+    <div className={`react-mega-menu-container ${className || ''}`}>
+      <div className="react-mega-menu-nav">
+        <div className="react-mega-menu-left">
+          <Button
+            title="Home"
+            onClick={onHomeClick}
+            className="react-mega-menu-left-button"
+            icon={<MenuIcon />}
+            iconOnly
           />
         </div>
         
-        <div className="mega-menu-right">
-          <Button 
-            className="settings-menu" 
-            title="Settings" 
+        <div className="react-mega-menu-center">
+          <ReactMegaMenu
+            data={menuData}
+            tolerance={100}
+            styleConfig={{
+              menuProps: {
+                style: {
+                  display: 'flex',
+                }
+              },
+              menuItemProps: {
+                style: {
+                  padding: '12px 0',
+                  margin: '0',
+                  marginRight: '32px',
+                  cursor: 'pointer',
+                }
+              },
+              contentProps: {
+                style: {
+                  backgroundColor: '#ffffff',
+                  border: '1px solid #e1dfdd',
+                  borderRadius: '4px',
+                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                  padding: '0px',
+                  position: 'absolute',
+                  top: '100%',
+                  left: '0',
+                  right: '0',
+                  zIndex: '1000',
+                  marginTop: '-10px',
+                }
+              }
+            }}
+            onExit={() => {
+              console.log('Menu exited');
+            }}
+          />
+        </div>
+        
+        <div className="react-mega-menu-right">
+          <Button
+            title="Settings"
             onClick={onSettingsClick}
-            icon="settings"
+            className="react-mega-menu-right-button"
+            icon={<MoreIcon />}
+            iconOnly
           />
         </div>
       </div>
-      
-      {activeItem && (
-        <div 
-          className="mega-menu-panel"
-          onMouseEnter={() => handleMouseEnter(activeItem)}
-        >
-          {items.find(item => item.id === activeItem) && 
-            renderMegaMenuContent(items.find(item => item.id === activeItem)!)
-          }
-        </div>
-      )}
     </div>
   );
 };
 
-export default MegaMenu;
+export default MegaMenuComponent;
