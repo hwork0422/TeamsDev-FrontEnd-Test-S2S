@@ -345,6 +345,7 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
                                     icon={<AddIcon />}
                                     primary
                                     title={isMaxDepth ? 'Maximum depth (4 levels) reached' : 'Add child item'}
+                                    className="responsive-button"
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         if (!isMaxDepth) {
@@ -357,6 +358,8 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
                                 <Button
                                     content="Edit"
                                     icon={<EditIcon />}
+                                    title="Edit item"
+                                    className="responsive-button"
                                     onClick={(e) => {
                                         console.log('Edit button clicked for item:', item.id);
                                         e.stopPropagation();
@@ -367,6 +370,8 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
                                 <Button
                                     content="Delete"
                                     icon={<TrashCanIcon />}
+                                    title="Delete item"
+                                    className="responsive-button"
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         handleDeleteClick(item);

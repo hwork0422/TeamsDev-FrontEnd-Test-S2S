@@ -594,3 +594,30 @@
 [data-theme="contrast"] .settings-footer {
   border-top: 2px solid var(--color-border-primary);
 }
+
+/* ==========================================================================
+   Responsive Button Styles
+   ========================================================================== */
+
+/* Hide button text on small screens, show only icons */
+@media (max-width: 768px) {
+  .responsive-button .ui-button__content {
+    display: none !important;
+  }
+  
+  .responsive-button {
+    min-width: 40px !important;
+    padding: 8px !important;
+  }
+  
+  .responsive-button .ui-icon {
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .responsive-button {
+    min-width: 36px !important;
+    padding: 6px !important;
+  }
+}
